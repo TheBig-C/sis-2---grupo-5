@@ -13,9 +13,9 @@ tiempo real del inventario.
 
 ## Herramientas usadas 
 
-Frontend: HTML, CSS, JS, Bootstrap
-Backend: PHP
-BD: PostgreSQL
+Frontend: HTML, CSS, JS, Bootstrap  
+Backend: PHP  
+BD: PostgreSQL  
 
 
 ## Configuración del entorno de desarrollo
