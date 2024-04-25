@@ -5,5 +5,5 @@ include 'Producto.php';
 include 'Proveedor.php';
 include 'Sucursal.php';
 include 'Venta.php';
-
+include 'Inventario.php';
 ?>
