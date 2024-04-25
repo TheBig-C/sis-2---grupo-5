@@ -1,5 +1,13 @@
 h1{
     margin-left: 5%;
-    color: aliceblue;
+    color: #2B2D42;
     font-size: 7vh;
+    margin-top: 5vh;
+    text-align: center;
+}
+.white-box {
+    background-color: #fff;
+    padding: 3vh;
+    border-radius: 3vh;
+    box-shadow: 0 0 3vh rgba(0, 0, 0, 0.1);
 }
