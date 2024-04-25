@@ -15,7 +15,13 @@
             <span> | </span>
             <a href="ventas.php"><b>Ventas</b></a>
         </nav>
-        <a href="index.php"><b>Iniciar Sesion</b></a>
+        <a href="login.html"><b>Iniciar Sesion</b></a>
     </header>
 </body>
 </html>
+
+<?php
+// Redireccionar al navegador hacia la página de inicio de sesión
+header('Location: frontend/views/auth/login.html');
+exit;
+?>
