@@ -1,17 +1,16 @@
 <?php
 // Asegúrate de que el archivo donde está definida la clase se incluya antes de intentar usarla.
-include_once '../../../backend/controllers/controllers.php';
+include_once 'C:\xampp\htdocs\sis2-Ketal\backend\controllers\controllers.php';
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $cp = $_POST['cp'];
     $nombre = $_POST['nombre'];
     $precioCompra = $_POST['precioCompra'];
     $precioVenta = $_POST['precioVenta'];
-    $cantidad = $_POST['cantidad'];
-    $sucursal_csucursal = $_POST['sucursal_csucursal'];
-    $Proveedor_cprovee= $_POST['Proveedor_cprovee'];
-    $cantidad = $_POST['cantidad'];
     $categoria = $_POST['categoria'];
-    $result = controladorInsertarProducto($cp, $nombre, $cantidad, $estado, $precioCompra, $precioVenta, $inventario, $categoria, $sucursal_csucursal, $Proveedor_cprovee);
+    $Proveedor_cprovee= $_POST['Proveedor_cprovee'];
+    $result = controladorInsertarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $Proveedor_cprovee);
     echo"resultado: $result";
     if($result){
         header('Location: ../productos/view_pproduct.php');
@@ -48,21 +47,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <h1>AGREGAR PRODUCTO NUEVO</h1>
                 <br>
                 <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4 login-container">
-                    <form action="view_register_product.php" method="post">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <p> Codigo de producto: </p>
+                            <input type="number" name="cp" class="form-control" required>
+                        </div>
                         <div class="form-group">
                             <p> Nombre del producto nuevo: </p>
                             <input type="text" name="nombre" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <p> Cantidad: </p>
-                            <input type="number" name="cantidad" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <p> Estado: </p>
-                            <select name="estado" class="form-control" required>
-                                <option value="Nuevo">Nuevo</option>
-                                <option value="Vencido">Vencido</option>
-                            </select>
                         </div>
                         <div class="form-group">
                             <p> Precio compra: </p>
@@ -73,30 +65,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <input type="text" name="precioVenta" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <p> Cantidad: </p>
-                            <input type="text" name="cantidad" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <p> Estado: </p>
-                            <input type="text" name="estado" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <p> Sucursal: </p>
-                            <input type="text" name="sucursal_csucursal" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <p> Proveedor: </p>
-                            <input type="text" name="Proveedor_cprovee" class="form-control" required>
-                        </div>
-                        <div class="form-group">
                             <p> Categoria: </p>
-                            <select name="categoria" class="form-control" multiple required>
+                            <select name="categoria" class="form-control" required>
                                 <option value="Electrónica">Electrónica</option>
                                 <option value="Limpieza">Limpieza</option>
                                 <option value="Carne">Carne</option>
                                 <option value="Lacteos">Lacteos</option>
                                 <option value="Verduras">Verduras</option>
                                 <option value="Hogar">Hogar</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <p> Proveedor: </p>
+                            <select name="Proveedor_cprovee" class="form-control" required>
+                                <?php
+                                $proveedores = controladorSeleccionarTodosLosProveedores();
+                                foreach ($proveedores as $proveedor) {
+                                    echo "<option value='" . $proveedor->getCproveedor() . "'>" . $proveedor->getNombre() . "</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-block btn-registerProduct custom-btn">Registrar</button>

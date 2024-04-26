@@ -6,15 +6,15 @@ class Producto {
     private $precioCompra;
     private $precioVenta;
     private $categoria;
-    private $Proveedor_cprovee;
+    private $Proveedor_cproveedor;
 
-    public function __construct($cp, $nombre, $precioCompra, $precioVenta, $categoria, $Proveedor_cprovee) {
+    public function __construct($cp, $nombre, $precioCompra, $precioVenta, $categoria, $Proveedor_cproveedor) {
         $this->cp = $cp;
         $this->nombre = $nombre;
         $this->precioCompra = $precioCompra;
         $this->precioVenta = $precioVenta;
         $this->categoria = $categoria;
-        $this->Proveedor_cprovee = $Proveedor_cprovee;
+        $this->Proveedor_cproveedor = $Proveedor_cproveedor;
     }
 
     // Getters and setters...
@@ -57,24 +57,24 @@ class Producto {
         $this->categoria = $categoria;
     }
 
-    public function getProveedorCprovee() {
-        return $this->Proveedor_cprovee;
+    public function getProveedorCproveedor() {
+        return $this->Proveedor_cproveedor;
     }
 
-    public function setProveedorCprovee($Proveedor_cprovee) {
-        $this->Proveedor_cprovee = $Proveedor_cprovee;
+    public function setProveedorCproveedor($Proveedor_cproveedor) {
+        $this->Proveedor_cproveedor = $Proveedor_cproveedor;
     }
 
-    public static function insertarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $Proveedor_cprovee) {
+    public static function insertarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $Proveedor_cproveedor) {
         $conn = conexion();
         $cp = pg_escape_string($conn, $cp);
         $nombre = pg_escape_string($conn, $nombre);
         $precioCompra = pg_escape_string($conn, $precioCompra);
         $precioVenta = pg_escape_string($conn, $precioVenta);
         $categoria = pg_escape_string($conn, $categoria);
-        $Proveedor_cprovee = pg_escape_string($conn, $Proveedor_cprovee);
+        $Proveedor_cprovee = pg_escape_string($conn, $Proveedor_cproveedor);
 
-        $query = "INSERT INTO Producto (cp, nombre, precioCompra, precioVenta,categoria, Proveedor_cprovee) VALUES ('$cp', '$nombre', $precioCompra, $precioVenta, '$categoria', '$Proveedor_cprovee')";
+        $query = "INSERT INTO Producto (cp, nombre, precioCompra, precioVenta,categoria, Proveedor_cproveedor) VALUES ('$cp', '$nombre', $precioCompra, $precioVenta, '$categoria', '$Proveedor_cproveedor')";
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Error al insertar el producto.\n";
@@ -89,22 +89,22 @@ class Producto {
         $productos = [];
 
         while ($productoData = pg_fetch_assoc($result)) {
-            $productos[] = new Producto($productoData['cp'], $productoData['nombre'], $productoData['precioCompra'], $productoData['precioVenta'],$productoData['categoria'],$productoData['Proveedor_cprovee']);
+            $productos[] = new Producto($productoData['cp'], $productoData['nombre'], $productoData['precioCompra'], $productoData['precioVenta'],$productoData['categoria'],$productoData['Proveedor_cproveedor']);
         }
 
         return $productos;
     }
 
-    public static function actualizarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $Proveedor_cprovee) {
+    public static function actualizarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $Proveedor_cproveedor) {
         $conn = conexion();
         $cp = pg_escape_string($conn, $cp);
         $nombre= pg_escape_string($conn, $nombre);
         $precioCompra = pg_escape_string($conn, $precioCompra);
         $precioVenta = pg_escape_string($conn, $precioVenta);
         $categoria = pg_escape_string($conn, $categoria);
-        $Proveedor_cprovee = pg_escape_string($conn, $Proveedor_cprovee);
+        $Proveedor_cprovee = pg_escape_string($conn, $Proveedor_cproveedor);
 
-        $query = "UPDATE Producto SET nombre = '$nombre',  precioCompra = $precioCompra, precioVenta = $precioVenta,  categoria = '$categoria', Proveedor_cprovee = '$Proveedor_cprovee' WHERE cp = '$cp'";
+        $query = "UPDATE Producto SET nombre = '$nombre',  precioCompra = $precioCompra, precioVenta = $precioVenta,  categoria = '$categoria', Proveedor_cproveedor = '$Proveedor_cproveedor' WHERE cp = '$cp'";
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Error al actualizar el producto.\n";
@@ -145,7 +145,7 @@ class Producto {
             $productoData['precioCompra'],
             $productoData['precioVenta'],
             $productoData['categoria'],
-            $productoData['Proveedor_cprovee']
+            $productoData['Proveedor_cproveedor']
         );
         return $producto;
     }
