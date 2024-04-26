@@ -1,27 +1,3 @@
-<?php
-// Asegúrate de que el archivo donde está definida la clase se incluya antes de intentar usarla.
-include_once '../../../backend/controllers/controllers.php';
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nombre = $_POST['nombre'];
-    $precioCompra = $_POST['precioCompra'];
-    $precioVenta = $_POST['precioVenta'];
-    $cantidad = $_POST['cantidad'];
-    $sucursal_csucursal = $_POST['sucursal_csucursal'];
-    $Proveedor_cprovee= $_POST['Proveedor_cprovee'];
-    $cantidad = $_POST['cantidad'];
-    $categoria = $_POST['categoria'];
-    $result = controladorInsertarProducto($cp, $nombre, $cantidad, $estado, $precioCompra, $precioVenta, $inventario, $categoria, $sucursal_csucursal, $Proveedor_cprovee);
-    echo"resultado: $result";
-    if($result){
-        header('Location: ../productos/view_pproduct.php');
-
-    }else{
-        echo "Error al registrar producto";
-        header('Location: ../productos/view_register_pproduct.php');
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,14 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="form-group">
                             <p> Cantidad: </p>
-                            <input type="number" name="cantidad" class="form-control" required>
+                            <input type="text" name="nombre" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <p> Estado: </p>
-                            <select name="estado" class="form-control" required>
-                                <option value="Nuevo">Nuevo</option>
-                                <option value="Vencido">Vencido</option>
-                            </select>
+                            <input type="text" name="nombre" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <p> Precio compra: </p>
@@ -90,16 +63,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="form-group">
                             <p> Categoria: </p>
-                            <select name="categoria" class="form-control" multiple required>
-                                <option value="Electrónica">Electrónica</option>
-                                <option value="Limpieza">Limpieza</option>
-                                <option value="Carne">Carne</option>
-                                <option value="Lacteos">Lacteos</option>
-                                <option value="Verduras">Verduras</option>
-                                <option value="Hogar">Hogar</option>
-                            </select>
+                            <input type="text" name="categoria" class="form-control" required>
                         </div>
-                        <button type="submit" class="btn btn-block btn-registerProduct custom-btn">Registrar</button>
+                        <button type="submit" class="btn btn-block btn-registerProduct">Registrar</button>
                     </form>
                 </div>
             </div>

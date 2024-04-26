@@ -3,25 +3,17 @@
 class Producto {
     private $cp;
     private $nombre;
-    private $cantidad;
-    private $estado;
     private $precioCompra;
     private $precioVenta;
-    private $inventario;
     private $categoria;
-    private $sucursal_csucursal;
     private $Proveedor_cprovee;
 
-    public function __construct($cp, $nombre, $cantidad, $estado, $precioCompra, $precioVenta, $inventario, $categoria, $sucursal_csucursal, $Proveedor_cprovee) {
+    public function __construct($cp, $nombre, $precioCompra, $precioVenta, $categoria, $Proveedor_cprovee) {
         $this->cp = $cp;
         $this->nombre = $nombre;
-        $this->cantidad = $cantidad;
-        $this->estado= $estado;
         $this->precioCompra = $precioCompra;
         $this->precioVenta = $precioVenta;
-        $this->inventario= $inventario;
         $this->categoria = $categoria;
-        $this->sucursal_csucursal = $sucursal_csucursal;
         $this->Proveedor_cprovee = $Proveedor_cprovee;
     }
 
@@ -41,23 +33,6 @@ class Producto {
     public function setNombre($nombre) {
         $this->nombre = $nombre;
     }
-
-    public function getCantidad() {
-        return $this->cantidad;
-    }
-
-    public function setCantidad($cantidad) {
-        $this->cantidad = $cantidad;
-    }
-
-    public function getEstado() {
-        return $this->estado;
-    }
-
-    public function setEstado($estado) {
-        $this->estado = $estado;
-    }
-
     public function getPrecioCompra() {
         return $this->precioCompra;
     }
@@ -74,28 +49,12 @@ class Producto {
         $this->precioVenta = $precioVenta;
     }
 
-    public function getInventario() {
-        return $this->inventario;
-    }
-
-    public function setInventario($inventario) {
-        $this->inventario = $inventario;
-    }
-
     public function getCategoria() {
         return $this->categoria;
     }
 
     public function setCategoria($categoria) {
         $this->categoria = $categoria;
-    }
-
-    public function getSucursalCsucursal() {
-        return $this->sucursal_csucursal;
-    }
-
-    public function setSucursalCsucursal($sucursal_csucursal) {
-        $this->sucursal_csucursal = $sucursal_csucursal;
     }
 
     public function getProveedorCprovee() {
@@ -106,20 +65,16 @@ class Producto {
         $this->Proveedor_cprovee = $Proveedor_cprovee;
     }
 
-    public static function insertarProducto($cp, $nombre, $cantidad, $estado, $precioCompra, $precioVenta, $inventario, $categoria, $sucursal_csucursal, $Proveedor_cprovee) {
+    public static function insertarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $Proveedor_cprovee) {
         $conn = conexion();
         $cp = pg_escape_string($conn, $cp);
         $nombre = pg_escape_string($conn, $nombre);
-        $cantidad = pg_escape_string($conn, $cantidad);
-        $estado = pg_escape_string($conn, $estado);
         $precioCompra = pg_escape_string($conn, $precioCompra);
         $precioVenta = pg_escape_string($conn, $precioVenta);
-        $inventario = pg_escape_string($conn, $inventario);
         $categoria = pg_escape_string($conn, $categoria);
-        $sucursal_csucursal = pg_escape_string($conn, $sucursal_csucursal);
         $Proveedor_cprovee = pg_escape_string($conn, $Proveedor_cprovee);
 
-        $query = "INSERT INTO Producto (cp, nombre, cantidad, estado, precioCompra, precioVenta, inventario ,categoria, sucursal_csucursal, Proveedor_cprovee) VALUES ('$cp', '$nombre',$cantidad, '$estado', $precioCompra, $precioVenta,'$inventario', '$categoria', '$sucursal_csucursal', '$Proveedor_cprovee')";
+        $query = "INSERT INTO Producto (cp, nombre, precioCompra, precioVenta,categoria, Proveedor_cprovee) VALUES ('$cp', '$nombre', $precioCompra, $precioVenta, '$categoria', '$Proveedor_cprovee')";
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Error al insertar el producto.\n";
@@ -134,26 +89,22 @@ class Producto {
         $productos = [];
 
         while ($productoData = pg_fetch_assoc($result)) {
-            $productos[] = new Producto($productoData['cp'], $productoData['nombre'],$productoData['cantidad'], $productoData['estado'], $productoData['precioCompra'], $productoData['precioVenta'], $productoData['inventario'],$productoData['categoria'], $productoData['sucursal_csucursal'], $productoData['Proveedor_cprovee']);
+            $productos[] = new Producto($productoData['cp'], $productoData['nombre'], $productoData['precioCompra'], $productoData['precioVenta'],$productoData['categoria'],$productoData['Proveedor_cprovee']);
         }
 
         return $productos;
     }
 
-    public static function actualizarProducto($cp, $nombre,$cantidad, $estado, $precioCompra, $precioVenta, $inventario, $categoria, $sucursal_csucursal, $Proveedor_cprovee) {
+    public static function actualizarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $Proveedor_cprovee) {
         $conn = conexion();
         $cp = pg_escape_string($conn, $cp);
         $nombre= pg_escape_string($conn, $nombre);
-        $cantidad= pg_escape_string($conn, $cantidad);
-        $estado = pg_escape_string($conn, $estado);
         $precioCompra = pg_escape_string($conn, $precioCompra);
         $precioVenta = pg_escape_string($conn, $precioVenta);
-        $inventario = pg_escape_string($conn, $inventario);
         $categoria = pg_escape_string($conn, $categoria);
-        $sucursal_csucursal = pg_escape_string($conn, $sucursal_csucursal);
         $Proveedor_cprovee = pg_escape_string($conn, $Proveedor_cprovee);
 
-        $query = "UPDATE Producto SET nombre = '$nombre', cantidad=$cantidad, estado='$estado', precioCompra = $precioCompra, precioVenta = $precioVenta,inventario='$inventario',  categoria = '$categoria', sucursal_csucursal = '$sucursal_csucursal', Proveedor_cprovee = '$Proveedor_cprovee' WHERE cp = '$cp'";
+        $query = "UPDATE Producto SET nombre = '$nombre',  precioCompra = $precioCompra, precioVenta = $precioVenta,  categoria = '$categoria', Proveedor_cprovee = '$Proveedor_cprovee' WHERE cp = '$cp'";
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Error al actualizar el producto.\n";
@@ -188,20 +139,14 @@ class Producto {
             echo "No se encontró ningún producto con el código proporcionado.";
             return null;
         }
-    
         $producto = new Producto(
             $productoData['cp'],
             $productoData['nombre'],
-            $productoData['cantidad'],
-            $productoData['estado'],
             $productoData['precioCompra'],
             $productoData['precioVenta'],
-            $productoData['inventario'],
             $productoData['categoria'],
-            $productoData['sucursal_csucursal'],
             $productoData['Proveedor_cprovee']
         );
-    
         return $producto;
     }
     
