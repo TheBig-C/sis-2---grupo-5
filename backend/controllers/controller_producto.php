@@ -1,9 +1,9 @@
 <?php
 include_once 'C:\xampp\htdocs\sis2-ketal\backend\models\classes.php';
 
-function controladorInsertarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $sucursal_csucursal, $Proveedor_cprovee) {
+function controladorInsertarProducto($cp, $nombre, $cantidad, $estado, $precioCompra, $precioVenta, $inventario, $categoria, $sucursal_csucursal, $Proveedor_cprovee) {
     try {
-        Producto::insertarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $sucursal_csucursal, $Proveedor_cprovee);
+        Producto::insertarProducto($cp, $nombre, $cantidad, $estado, $precioCompra, $precioVenta, $inventario, $categoria, $sucursal_csucursal, $Proveedor_cprovee);
         echo "Producto insertado correctamente.";
     } catch (Exception $e) {
         echo "Error al insertar producto: " . $e->getMessage();
