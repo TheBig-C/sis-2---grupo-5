@@ -1,0 +1,92 @@
+
+.body-login {
+    display: flex;
+    align-items: center; /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    min-height: 100vh; /* Altura mínima de viewport */
+    background: url('../images/fondo.jpeg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: covera;
+    background-size: cover;
+}
+
+.container {
+    width: 100%; /* Asegúrate de que el contenedor tome el 100% del ancho de su contenedor padre */
+    max-width: none; /* Para que no esté limitado por el máximo ancho de Bootstrap */
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Quitar el ancho máximo si lo hubiera para que respete los tamaños de las columnas de Bootstrap */
+    max-width: none;
+}
+
+/*sucursal*/
+.body-suc {
+    background-color: #2B2D42; /* Fondo azul */
+}
+
+.branch-card .card {
+    background-color: #D90329; /* Tarjeta roja */
+}
+
+.branch-card .card-img-top {
+    height: 450px; /* Altura fija para consistencia */
+    width: 100%; /* Asegura que la imagen se ajuste al ancho de la tarjeta */
+    object-fit: cover; /* Asegurar que la imagen cubra el área */
+}
+
+.branch-container {
+    display: flex;
+    justify-content: center; /* Distribuye el espacio uniformemente */
+    flex-wrap: wrap;
+    margin-top: 2rem; /* Espaciado superior para bajar las tarjetas */
+}
+
+.branch-card {
+    max-width: 350px; /* Ancho máximo para las tarjetas */
+    margin: 1rem; /* Espaciado alrededor para separar las tarjetas */
+}
+
+.title-section {
+    padding-top: 2rem; /* Espacio arriba para evitar que la tarjeta cubra el título */
+}
+
+.card-title {
+    color: white; /* Títulos de las tarjetas en blanco */
+}
+
+
+
+
+
+
+.login-logo {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.login-logo img {
+    width: 50%;
+}
+
+.login-button {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    color: white;
+}
+
+.login-button:hover {
+    background-color: #c9302c;
+    border-color: #ac2925;
+}
+
+@media (max-width: 576px) {
+    .login-logo img {
+        width: 70%;
+    }
+}
