@@ -35,9 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <header class="header">
         <nav class="navbar">
             <img src="/sis2-Ketal//frontend/assets/ketal.png">
-            <a href="productos.php"><b>Productos</b></a>
+            <a href="view_producto.php"><b>Productos</b></a>
             <span> | </span>
-            <a href="ventas.php"><b>Ventas</b></a>
+            <a href="view_ventas.php"><b>Ventas</b></a>
         </nav>
         <a href="login.html"><b>Iniciar Sesion</b></a>
     </header>
