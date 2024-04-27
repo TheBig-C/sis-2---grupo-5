@@ -22,7 +22,7 @@ class Venta {
         $this->totalEntregado = $totalEntregado;
         $this->tipodepago = $tipodepago;
         $this->ci_cliente = $ci_cliente;
-        $this->Funcionario_cf = $Funcionario_cf;
+        $this->Funcionario_cf= $Funcionario_cf;
     }
 
     // Getters and setters...
@@ -120,7 +120,7 @@ class Venta {
         $ci_cliente = pg_escape_string($conn, $ci_cliente);
         $Funcionario_cf = pg_escape_string($conn, $Funcionario_cf);
 
-        $query = "INSERT INTO Venta (cv, fecha, hora, estado, metodo, total, totalEntregado, tipodepago, ci_cliente, Funcionario_cf) VALUES ('$cv', '$fecha', '$hora', '$estado', '$metodo', $total, $totalEntregado, '$tipodepago', '$ci_cliente', '$Funcionario_cf')";
+        $query = "INSERT INTO Venta (cv, fecha, hora, estado, metodo, total, totalEntregado, tipodepago, ci_cliente, funcionario_cf) VALUES ('$cv', '$fecha', '$hora', '$estado', '$metodo', $total, $totalEntregado, '$tipodepago', '$Funcionario_cf', '$ci_cliente')";
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Error al insertar la venta.\n";
@@ -135,7 +135,38 @@ class Venta {
         $ventas = [];
 
         while ($ventaData = pg_fetch_assoc($result)) {
-            $ventas[] = new Venta($ventaData['cv'], $ventaData['fecha'], $ventaData['hora'], $ventaData['estado'], $ventaData['metodo'], $ventaData['total'], $ventaData['totalEntregado'], $ventaData['tipodepago'], $ventaData['ci_cliente'], $ventaData['Funcionario_cf']);
+            $ventas[] = new Venta($ventaData['cv'], $ventaData['fecha'], $ventaData['hora'], $ventaData['estado'], $ventaData['metodo'], $ventaData['total'], $ventaData['totalentregado'], $ventaData['tipodepago'], $ventaData['ci_cliente'], $ventaData['funcionario_cf']);
+        }
+
+        return $ventas;
+    }
+    // Venta.php
+
+    public static function seleccionarVentasPorCliente($ci_cliente) {
+        $conn = conexion();
+        $ci_cliente = pg_escape_string($conn, $ci_cliente);
+
+        $query = "SELECT * FROM Venta WHERE ci_cliente = '$ci_cliente'";
+        $result = pg_query($conn, $query);
+        if (!$result) {
+            echo "Ocurrió un error al seleccionar las ventas del cliente.\n";
+            exit;
+        }
+
+        $ventas = [];
+        while ($ventaData = pg_fetch_assoc($result)) {
+            $ventas[] = new Venta(
+                $ventaData['cv'],
+                $ventaData['fecha'],
+                $ventaData['hora'],
+                $ventaData['estado'],
+                $ventaData['metodo'],
+                $ventaData['total'],
+                $ventaData['totalentregado'],
+                $ventaData['tipodepago'],
+                $ventaData['ci_cliente'],
+                $ventaData['funcionario_cf']
+            );
         }
 
         return $ventas;
@@ -167,7 +198,7 @@ class Venta {
         $conn = conexion();
         $cv = pg_escape_string($conn, $cv);
 
-        $query = "DELETE FROM Ventas WHERE cv = '$cv'";
+        $query = "DELETE FROM Venta WHERE cv = '$cv'";
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Error al eliminar la venta.\n";
@@ -201,7 +232,7 @@ class Venta {
             $ventaData['totalEntregado'],
             $ventaData['tipodepago'],
             $ventaData['ci_cliente'],
-            $ventaData['Funcionario_cf']
+            $ventaData['funcionario_cf']
         );
     
         return $venta;

@@ -64,7 +64,7 @@ class Inventario {
                 $inventarioData['cantidad'],
                 $inventarioData['estado'],
                 $inventarioData['sucursal_csucursal'],
-                $inventarioData['Producto_cp']
+                $inventarioData['producto_cp']
             );
         }
 
