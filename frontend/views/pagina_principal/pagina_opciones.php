@@ -88,7 +88,7 @@
             <!-- Botones de las opciones en la primera fila -->
             <a href="../view_ventas.php" class="btn btn-option">REGISTRAR VENTA</a>
             <a href="../registrar_pedido.php" class="btn btn-option">REGISTRAR PEDIDO</a>
-            <a href="../view_product.php" class="btn btn-option">AGREGAR PRODUCTOS NUEVO</a>
+            <a href="../productos/view_register_product.php" class="btn btn-option">AGREGAR PRODUCTOS NUEVO</a>
         </div>
         <div class="row text-center options-container">
             <!-- Botones de las opciones en la segunda fila -->
