@@ -1,5 +1,5 @@
 <?php
-include_once('ProductoVendido.php');
+include_once('C:\xampp\htdocs\sis2-Ketal\backend\models\ProductoVendido.php');
 
 function controladorInsertarProductoVendido($cpv, $venta_cv, $producto_cp) {
     try {
@@ -17,6 +17,14 @@ function controladorSeleccionarProductosVendidos() {
         echo "Error al seleccionar los productos vendidos: " . $e->getMessage();
     }
 }
+function controladorSeleccionarProductosVendidosPorVenta($venta_cv) {
+    try {
+        return ProductoVendido::seleccionarProductosVendidosPorVenta($venta_cv);
+    } catch (Exception $e) {
+        echo "Error al seleccionar los productos vendidos para la venta $venta_cv: " . $e->getMessage();
+    }
+}
+
 
 function controladorActualizarProductoVendido($cpv, $venta_cv, $producto_cp) {
     try {

@@ -24,3 +24,6 @@ h1{
     cursor: pointer; /* Cursor on hover */
     border-radius: 10px; /* Rounded corners */
 }
+.table-container{
+    display: flex;
+}

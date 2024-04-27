@@ -149,7 +149,37 @@ class Producto {
         );
         return $producto;
     }
-    
+    public static function obtenerProductoPorCodigo($codigo) {
+        $conn = conexion(); // Suponiendo que tienes una función para establecer la conexión a la base de datos
+        
+        $codigo = pg_escape_string($conn, $codigo); // Escapar el código para evitar inyección SQL
+        
+        $query = "SELECT * FROM Producto WHERE cp = '$codigo'"; // Consulta para seleccionar el producto con el código proporcionado
+        
+        $result = pg_query($conn, $query); // Ejecutar la consulta
+        if (!$result) {
+            echo "Error al obtener el producto con el código $codigo";
+            return null;
+        }
+        
+        $productoData = pg_fetch_assoc($result); // Obtener los datos del producto
+        if (!$productoData) {
+            echo "No se encontró ningún producto con el código proporcionado.";
+            return null;
+        }
+        
+        // Crear un objeto Producto con los datos obtenidos y devolverlo
+        $producto = new Producto(
+            $productoData['cp'],
+            $productoData['nombre'],
+            $productoData['precioCompra'],
+            $productoData['precioVenta'],
+            $productoData['categoria'],
+            $productoData['Proveedor_cproveedor']
+        );
+        
+        return $producto;
+    }
 }
 
 ?>
