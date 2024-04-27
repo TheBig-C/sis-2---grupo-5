@@ -104,7 +104,7 @@
                     <select class="form-control" id="tipo" name="tipo" required>
                         <option value="">Selecciona un tipo</option>
                         <option value="administrador">Administrador</option>
-                        <option value="">Cajero</option>
+                        <option value="cajero">Cajero</option>
                         <option value="operativo">Operativo</option>
                     </select>
                 </div>
