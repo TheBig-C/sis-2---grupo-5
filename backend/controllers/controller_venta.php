@@ -17,6 +17,13 @@ function controladorSeleccionarTodasLasVentas() {
         echo "Error al seleccionar todas las ventas: " . $e->getMessage();
     }
 }
+function controladorSeleccionarVentasPorCliente($ci_cliente) {
+    try {
+        return Venta::seleccionarVentasPorCliente($ci_cliente);
+    } catch (Exception $e) {
+        echo "Error al buscar venta por cliente: " . $e->getMessage();
+    }
+}
 
 function controladorActualizarVenta($cv, $fecha, $hora, $estado, $metodo, $total, $totalEntregado, $tipodepago, $ci_cliente, $Funcionario_cf) {
     try {

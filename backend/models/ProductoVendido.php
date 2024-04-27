@@ -10,7 +10,28 @@ class ProductoVendido {
         $this->venta_cv = $venta_cv;
         $this->producto_cp = $producto_cp;
     }
+    public function getProductoCp() {
+        return $this->producto_cp;
+    }
 
+    public function setProductoCp($producto_cp) {
+        $this->cpv = $producto_cp;
+    }
+    public function getCpv() {
+        return $this->cpv;
+    }
+
+    public function setCpv($cpv) {
+        $this->cpv = $cpv;
+    }
+    public function getVentaCv() {
+        return $this->venta_cv;
+    }
+
+    public function setVentaCv($venta_cv) {
+        $this->cpv = $venta_cv;
+    }
+    
     // Métodos CRUD con formato estático
     public static function insertarProductoVendido($cpv, $venta_cv, $producto_cp) {
         $conn = conexion();
@@ -49,7 +70,31 @@ class ProductoVendido {
 
         return $productosVendidos;
     }
-
+    public static function seleccionarProductosVendidosPorVenta($venta_cv) {
+        $conn = conexion();
+        $venta_cv = pg_escape_string($conn, $venta_cv);
+        
+        $query = "SELECT * FROM ProductoVendido WHERE venta_cv = '$venta_cv'";
+        
+        $result = pg_query($conn, $query);
+        if (!$result) {
+            echo "Ocurrió un error al seleccionar los productos vendidos para la venta $venta_cv.\n";
+            exit;
+        }
+        
+        $productosVendidos = [];
+        while ($productoVendidoData = pg_fetch_assoc($result)) {
+            // Aquí podrías incluir la lógica necesaria para obtener más detalles del producto
+            $productosVendidos[] = new ProductoVendido(
+                $productoVendidoData['cpv'],
+                $productoVendidoData['venta_cv'],
+                $productoVendidoData['producto_cp']
+            );
+        }
+        
+        return $productosVendidos;
+    }
+    
     public static function actualizarProductoVendido($cpv, $venta_cv, $producto_cp) {
         $conn = conexion();
 

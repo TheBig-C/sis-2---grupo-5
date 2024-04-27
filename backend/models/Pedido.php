@@ -90,7 +90,7 @@ class Pedido {
         $pedidos = [];
 
         while ($pedidoData = pg_fetch_assoc($result)) {
-            $pedidos[] = new Pedido($pedidoData['cpe'], $pedidoData['fecha_pedido'], $pedidoData['fecha_entrega'], $pedidoData['estado'], $pedidoData['Funcionario_cf'], $pedidoData['Proveedor_cprovee']);
+            $pedidos[] = new Pedido($pedidoData['cpe'], $pedidoData['fecha_pedido'], $pedidoData['fecha_entrega'], $pedidoData['estado'], $pedidoData['funcionario_cf'], $pedidoData['proveedor_cprovee']);
         }
 
         return $pedidos;
@@ -105,7 +105,7 @@ class Pedido {
         $Funcionario_cf = pg_escape_string($conn, $Funcionario_cf);
         $Proveedor_cprovee = pg_escape_string($conn, $Proveedor_cprovee);
 
-        $query = "UPDATE Pedido SET fecha_pedido = '$fecha_pedido', fecha_entrega = '$fecha_entrega', estado = '$estado', Funcionario_cf = '$Funcionario_cf', Proveedor_cprovee = '$Proveedor_cprovee' WHERE cpe = '$cpe'";
+        $query = "UPDATE Pedido SET fecha_pedido = '$fecha_pedido', fecha_entrega = '$fecha_entrega', estado = '$estado', funcionario_cf = '$Funcionario_cf', Proveedor_cprovee = '$Proveedor_cprovee' WHERE cpe = '$cpe'";
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Error al actualizar el pedido.\n";
@@ -146,8 +146,8 @@ class Pedido {
             $pedidoData['fecha_pedido'],
             $pedidoData['fecha_entrega'],
             $pedidoData['estado'],
-            $pedidoData['Funcionario_cf'],
-            $pedidoData['Proveedor_cprovee']
+            $pedidoData['funcionario_cf'],
+            $pedidoData['proveedor_cprovee']
         );
     
         return $pedido;
