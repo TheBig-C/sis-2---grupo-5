@@ -120,7 +120,7 @@ class Venta {
         $ci_cliente = pg_escape_string($conn, $ci_cliente);
         $Funcionario_cf = pg_escape_string($conn, $Funcionario_cf);
 
-        $query = "INSERT INTO Venta (cv, fecha, hora, estado, metodo, total, totalEntregado, tipodepago, ci_cliente, Funcionario_cf) VALUES ('$cv', '$fecha', '$hora', '$estado', '$metodo', $total, $totalEntregado, '$tipodepago', '$ci_cliente', '$Funcionario_cf')";
+        $query = "INSERT INTO Venta (cv, fecha, hora, estado, metodo, total, totalEntregado, tipodepago, ci_cliente, funcionario_cf) VALUES ('$cv', '$fecha', '$hora', '$estado', '$metodo', $total, $totalEntregado, '$tipodepago', '$Funcionario_cf', '$ci_cliente')";
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Error al insertar la venta.\n";
@@ -135,7 +135,7 @@ class Venta {
         $ventas = [];
 
         while ($ventaData = pg_fetch_assoc($result)) {
-            $ventas[] = new Venta($ventaData['cv'], $ventaData['fecha'], $ventaData['hora'], $ventaData['estado'], $ventaData['metodo'], $ventaData['total'], $ventaData['totalEntregado'], $ventaData['tipodepago'], $ventaData['ci_cliente'], $ventaData['Funcionario_cf']);
+            $ventas[] = new Venta($ventaData['cv'], $ventaData['fecha'], $ventaData['hora'], $ventaData['estado'], $ventaData['metodo'], $ventaData['total'], $ventaData['totalentregado'], $ventaData['tipodepago'], $ventaData['ci_cliente'], $ventaData['funcionario_cf']);
         }
 
         return $ventas;
@@ -162,10 +162,10 @@ class Venta {
                 $ventaData['estado'],
                 $ventaData['metodo'],
                 $ventaData['total'],
-                $ventaData['totalEntregado'],
+                $ventaData['totalentregado'],
                 $ventaData['tipodepago'],
                 $ventaData['ci_cliente'],
-                $ventaData['Funcionario_cf']
+                $ventaData['funcionario_cf']
             );
         }
 
@@ -232,7 +232,7 @@ class Venta {
             $ventaData['totalEntregado'],
             $ventaData['tipodepago'],
             $ventaData['ci_cliente'],
-            $ventaData['Funcionario_cf']
+            $ventaData['funcionario_cf']
         );
     
         return $venta;

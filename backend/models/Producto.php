@@ -74,7 +74,7 @@ class Producto {
         $categoria = pg_escape_string($conn, $categoria);
         $Proveedor_cprovee = pg_escape_string($conn, $Proveedor_cproveedor);
 
-        $query = "INSERT INTO Producto (cp, nombre, precioCompra, precioVenta,categoria, Proveedor_cproveedor) VALUES ('$cp', '$nombre', $precioCompra, $precioVenta, '$categoria', '$Proveedor_cproveedor')";
+        $query = "INSERT INTO Producto (cp, nombre, precioCompra, precioVenta,categoria, proveedor_cproveedor) VALUES ('$cp', '$nombre', $precioCompra, $precioVenta, '$categoria', '$Proveedor_cproveedor')";
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Error al insertar el producto.\n";
@@ -89,7 +89,7 @@ class Producto {
         $productos = [];
 
         while ($productoData = pg_fetch_assoc($result)) {
-            $productos[] = new Producto($productoData['cp'], $productoData['nombre'], $productoData['precioCompra'], $productoData['precioVenta'],$productoData['categoria'],$productoData['Proveedor_cproveedor']);
+            $productos[] = new Producto($productoData['cp'], $productoData['nombre'], $productoData['preciocompra'], $productoData['precioventa'],$productoData['categoria'],$productoData['proveedor_cproveedor']);
         }
 
         return $productos;
@@ -104,7 +104,7 @@ class Producto {
         $categoria = pg_escape_string($conn, $categoria);
         $Proveedor_cprovee = pg_escape_string($conn, $Proveedor_cproveedor);
 
-        $query = "UPDATE Producto SET nombre = '$nombre',  precioCompra = $precioCompra, precioVenta = $precioVenta,  categoria = '$categoria', Proveedor_cproveedor = '$Proveedor_cproveedor' WHERE cp = '$cp'";
+        $query = "UPDATE Producto SET nombre = '$nombre',  preciocompra = $precioCompra, precioventa = $precioVenta,  categoria = '$categoria', proveedor_cproveedor = '$Proveedor_cproveedor' WHERE cp = '$cp'";
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Error al actualizar el producto.\n";
@@ -142,10 +142,10 @@ class Producto {
         $producto = new Producto(
             $productoData['cp'],
             $productoData['nombre'],
-            $productoData['precioCompra'],
-            $productoData['precioVenta'],
+            $productoData['preciocompra'],
+            $productoData['precioventa'],
             $productoData['categoria'],
-            $productoData['Proveedor_cproveedor']
+            $productoData['proveedor_cproveedor']
         );
         return $producto;
     }
@@ -172,10 +172,10 @@ class Producto {
         $producto = new Producto(
             $productoData['cp'],
             $productoData['nombre'],
-            $productoData['precioCompra'],
-            $productoData['precioVenta'],
+            $productoData['preciocompra'],
+            $productoData['precioventa'],
             $productoData['categoria'],
-            $productoData['Proveedor_cproveedor']
+            $productoData['proveedor_cproveedor']
         );
         
         return $producto;

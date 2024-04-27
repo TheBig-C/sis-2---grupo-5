@@ -46,8 +46,8 @@ class DetallePedido {
             $detallesPedido[] = new DetallePedido(
                 $detallePedidoData['cpp'],
                 $detallePedidoData['cantidad'],
-                $detallePedidoData['Producto_cp'],
-                $detallePedidoData['Pedido_cpe']
+                $detallePedidoData['producto_cp'],
+                $detallePedidoData['pedido_cpe']
             );
         }
 

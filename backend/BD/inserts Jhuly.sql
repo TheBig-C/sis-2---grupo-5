@@ -23,7 +23,7 @@ INSERT INTO Cliente (ci, nombre, apellidos, sexo) VALUES
 (1234567, 'Juan', 'Pérez', 'Masculino'),
 (2345678, 'María', 'López', 'Femenino');
 
-INSERT INTO Venta (cv, fecha, hora, estado, metodo, total, totalEntregado, tipodepago, ci_cliente, Funcionario_cf) VALUES
+INSERT INTO Venta (cv, fecha, hora, estado, metodo, total, totalentregado, tipodepago, ci_cliente, Funcionario_cf) VALUES
 (1, '2024-04-26', '10:30:00', true, 'Tarjeta', 100.50, 100.50, 'Débito',1234567, 20524548),
 (2, '2024-04-26', '11:45:00', true, 'Efectivo', 150.75, 150.75, 'Efectivo',2345678 ,20524548);
 
