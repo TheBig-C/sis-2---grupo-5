@@ -49,6 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4 login-container">
                     <form action="" method="post" enctype="multipart/form-data">
                         <div class="form-group">
+                            <p> Sucursal: </p>
+                            <input type="text" name="cp" class="form-control" placeholder="PONER SUCURSAL" readonly required>
+                        </div>
+                        <div class="form-group">
                             <p> Codigo de producto: </p>
                             <input type="number" name="cp" class="form-control" required>
                         </div>
