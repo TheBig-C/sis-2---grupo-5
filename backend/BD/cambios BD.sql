@@ -68,6 +68,7 @@ CREATE TABLE Producto (
 -- Table: ProductoVendido
 CREATE TABLE ProductoVendido (
     cpv int  NOT NULL,
+    cantidad int  NOT NULL,
     Venta_cv int  NOT NULL,
     Producto_cp int  NOT NULL,
     CONSTRAINT ProductoVendido_pk PRIMARY KEY (cpv)
