@@ -8,16 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nombre = $_POST['nombre'];
     $precioCompra = $_POST['precioCompra'];
     $precioVenta = $_POST['precioVenta'];
-    $cantidad = $_POST['cantidad'];
-
     $categoria = $_POST['categoria'];
     $Proveedor_cprovee= $_POST['Proveedor_cprovee'];
-    $serializedSucursal = $_COOKIE['sucursal'];
-    $suc = unserialize($serializedSucursal);
-    $aux= $suc->getCsucursal();
     $result = controladorInsertarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $Proveedor_cprovee);
-    controladorInsertarInventario($cantidad, true, $aux, $cp);
-
     echo"resultado: $result";
     if($result){
         header('Location: ../productos/view_pproduct.php');
@@ -35,16 +28,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ketal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="/sis2-ketal/frontend/css/styleJhuly.css">
-    <link rel="stylesheet" href="/sis2-ketal/frontend/css/style.css">
+    <link rel="stylesheet" href="/sis2-Ketal/frontend/css/styleJhuly.css">
+    <link rel="stylesheet" href="/sis2-Ketal/frontend/css/style.css">
 </head>
 <body>
     <header class="header">
         <nav class="navbar">
             <img src="/sis2-Ketal//frontend/assets/ketal.png">
-            <a href="*"><b>Productos</b></a>
+            <a href="view_producto.php"><b>Productos</b></a>
             <span> | </span>
-            <a href="../ventas/view_ventas.php"><b>Ventas</b></a>
+            <a href="view_ventas.php"><b>Ventas</b></a>
         </nav>
         <a href="login.html"><b>Iniciar Sesion</b></a>
     </header>
@@ -74,10 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="form-group">
                             <p> Precio venta: </p>
                             <input type="text" name="precioVenta" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <p> Cantidad: </p>
-                            <input type="text" name="cantidad" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <p> Categoria: </p>

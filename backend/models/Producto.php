@@ -191,6 +191,22 @@ class Producto {
         
         return $producto;
     }
+
+    public static function obtenerCategorias() {
+        $conn = conexion();
+        $query = "SELECT DISTINCT categoria FROM Producto";
+        $result = pg_query($conn, $query);
+        $categorias = [];
+        if (!$result) {
+            echo "Error al obtener las categorías.\n";
+            exit;
+        }
+        while ($row = pg_fetch_assoc($result)) {
+            $categorias[] = $row['categoria'];
+        }
+        return $categorias;
+    }
+    
 }
 
 ?>

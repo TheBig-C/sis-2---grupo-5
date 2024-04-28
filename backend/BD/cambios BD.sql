@@ -1,5 +1,7 @@
--- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2024-04-28 04:28:36.881
+--DESPUES DE CORRER LA BASE DE DATOS SI O SI PONEN ESTO
+
+ALTER TABLE pedido_producto ALTER COLUMN cpp ADD GENERATED ALWAYS AS IDENTITY;
+
 
 -- tables
 -- Table: Cliente
@@ -51,7 +53,7 @@ CREATE TABLE Pedido_producto (
     Proveedor_cproveedor varchar(30)  NOT NULL,
     CONSTRAINT Pedido_producto_pk PRIMARY KEY (cpp)
 );
-
+select * from pedido_producto
 -- Table: Producto
 CREATE TABLE Producto (
     cp int  NOT NULL,
@@ -84,7 +86,8 @@ CREATE TABLE Venta (
     cv int  NOT NULL,
     fecha date  NOT NULL,
     hora time  NOT NULL,
-    estado boolean  NOT NULL,
+    etado boolean  NOT NULL,
+    metodo varchar(30)  NOT NULL,
     total float(2)  NOT NULL,
     totalEntregado float(2)  NOT NULL,
     tipodepago varchar(50)  NOT NULL,
@@ -206,4 +209,6 @@ ALTER TABLE Pedido_producto ADD CONSTRAINT entity_1_Producto
 ;
 
 -- End of file.
+
+
 

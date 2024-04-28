@@ -86,7 +86,7 @@
     <div class="container mt-5">
         <div class="row text-center options-container">
             <!-- Botones de las opciones en la primera fila -->
-            <a href="../ventas/view_realizar_venta.php" class="btn btn-option">REGISTRAR VENTA</a>
+            <a href="../view_ventas.php" class="btn btn-option">REGISTRAR VENTA</a>
             <a href="../registrar_pedido.php" class="btn btn-option">REGISTRAR PEDIDO</a>
             <a href="../productos/view_register_product.php" class="btn btn-option">AGREGAR PRODUCTOS NUEVO</a>
         </div>
