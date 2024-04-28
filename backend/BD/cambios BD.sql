@@ -1,3 +1,10 @@
+--DESPUES DE CORRER LA BASE DE DATOS SI O SI PONEN ESTO
+
+ALTER TABLE pedido_producto ALTER COLUMN cpp ADD GENERATED ALWAYS AS IDENTITY;
+
+
+-- tables
+-- Table: Cliente
 CREATE TABLE Cliente (
     ci int  NOT NULL,
     nombre varchar(30)  NOT NULL,
@@ -33,8 +40,8 @@ CREATE TABLE Pedido (
     fecha_entrega date  NOT NULL,
     estado varchar(30)  NOT NULL,
     Funcionario_cf int  NOT NULL,
-    Proveedor_cproveedor varchar(30)  NOT NULL,
     sucursal_csucursal int  NOT NULL,
+    Pedido_producto_cpp int  NOT NULL,
     CONSTRAINT Pedido_pk PRIMARY KEY (cpe)
 );
 
@@ -43,10 +50,10 @@ CREATE TABLE Pedido_producto (
     cpp int  NOT NULL,
     cantidad int  NOT NULL,
     Producto_cp int  NOT NULL,
-    Pedido_cpe int  NOT NULL,
+    Proveedor_cproveedor varchar(30)  NOT NULL,
     CONSTRAINT Pedido_producto_pk PRIMARY KEY (cpp)
 );
-
+select * from pedido_producto
 -- Table: Producto
 CREATE TABLE Producto (
     cp int  NOT NULL,
@@ -61,8 +68,8 @@ CREATE TABLE Producto (
 -- Table: ProductoVendido
 CREATE TABLE ProductoVendido (
     cpv int  NOT NULL,
-    venta_cv int  NOT NULL,
-    producto_cp int  NOT NULL,
+    Venta_cv int  NOT NULL,
+    Producto_cp int  NOT NULL,
     CONSTRAINT ProductoVendido_pk PRIMARY KEY (cpv)
 );
 
@@ -78,12 +85,12 @@ CREATE TABLE Venta (
     cv int  NOT NULL,
     fecha date  NOT NULL,
     hora time  NOT NULL,
-    estado boolean  NOT NULL,
+    etado boolean  NOT NULL,
     metodo varchar(30)  NOT NULL,
     total float(2)  NOT NULL,
     totalEntregado float(2)  NOT NULL,
     tipodepago varchar(50)  NOT NULL,
-	ci_cliente int  NOT NULL,
+    Cliente_ci int  NOT NULL,
     Funcionario_cf int  NOT NULL,
     CONSTRAINT Venta_pk PRIMARY KEY (cv)
 );
@@ -128,8 +135,16 @@ ALTER TABLE Pedido ADD CONSTRAINT Pedido_Funcionario
     INITIALLY IMMEDIATE
 ;
 
--- Reference: Pedido_Proveedor (table: Pedido)
-ALTER TABLE Pedido ADD CONSTRAINT Pedido_Proveedor
+-- Reference: Pedido_Pedido_producto (table: Pedido)
+ALTER TABLE Pedido ADD CONSTRAINT Pedido_Pedido_producto
+    FOREIGN KEY (Pedido_producto_cpp)
+    REFERENCES Pedido_producto (cpp)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: Pedido_producto_Proveedor (table: Pedido_producto)
+ALTER TABLE Pedido_producto ADD CONSTRAINT Pedido_producto_Proveedor
     FOREIGN KEY (Proveedor_cproveedor)
     REFERENCES Proveedor (cproveedor)  
     NOT DEFERRABLE 
@@ -146,7 +161,7 @@ ALTER TABLE Pedido ADD CONSTRAINT Pedido_sucursal
 
 -- Reference: ProductoVendido_Producto (table: ProductoVendido)
 ALTER TABLE ProductoVendido ADD CONSTRAINT ProductoVendido_Producto
-    FOREIGN KEY (producto_cp)
+    FOREIGN KEY (Producto_cp)
     REFERENCES Producto (cp)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
@@ -154,7 +169,7 @@ ALTER TABLE ProductoVendido ADD CONSTRAINT ProductoVendido_Producto
 
 -- Reference: ProductoVendido_Venta (table: ProductoVendido)
 ALTER TABLE ProductoVendido ADD CONSTRAINT ProductoVendido_Venta
-    FOREIGN KEY (venta_cv)
+    FOREIGN KEY (Venta_cv)
     REFERENCES Venta (cv)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
@@ -170,7 +185,7 @@ ALTER TABLE Producto ADD CONSTRAINT Producto_Proveedor
 
 -- Reference: Venta_Cliente (table: Venta)
 ALTER TABLE Venta ADD CONSTRAINT Venta_Cliente
-    FOREIGN KEY (ci_cliente)
+    FOREIGN KEY (Cliente_ci)
     REFERENCES Cliente (ci)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
@@ -184,14 +199,6 @@ ALTER TABLE Venta ADD CONSTRAINT Venta_Funcionario
     INITIALLY IMMEDIATE
 ;
 
--- Reference: entity_1_Pedido (table: Pedido_producto)
-ALTER TABLE Pedido_producto ADD CONSTRAINT entity_1_Pedido
-    FOREIGN KEY (Pedido_cpe)
-    REFERENCES Pedido (cpe)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
-;
-
 -- Reference: entity_1_Producto (table: Pedido_producto)
 ALTER TABLE Pedido_producto ADD CONSTRAINT entity_1_Producto
     FOREIGN KEY (Producto_cp)
@@ -201,4 +208,6 @@ ALTER TABLE Pedido_producto ADD CONSTRAINT entity_1_Producto
 ;
 
 -- End of file.
+
+
 

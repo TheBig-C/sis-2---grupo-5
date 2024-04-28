@@ -1,9 +1,9 @@
 <?php
 include_once 'C:\xampp\htdocs\sis2-ketal\backend\models\classes.php';
 
-function controladorInsertarPedido($cpe, $fecha_pedido, $fecha_entrega, $estado, $Funcionario_cf, $Proveedor_cprovee) {
+function controladorInsertarPedido($cpe, $fecha_pedido, $fecha_entrega, $estado, $Funcionario_cf, $sucursal_csucursal, $Pedido_producto_cpp) {
     try {
-        Pedido::insertarPedido($cpe, $fecha_pedido, $fecha_entrega, $estado, $Funcionario_cf, $Proveedor_cprovee);
+        Pedido::insertarPedido($cpe, $fecha_pedido, $fecha_entrega, $estado, $Funcionario_cf, $sucursal_csucursal, $Pedido_producto_cpp);
         echo "Pedido insertado correctamente.";
     } catch (Exception $e) {
         echo "Error al insertar pedido: " . $e->getMessage();
@@ -18,9 +18,9 @@ function controladorSeleccionarTodosLosPedidos() {
     }
 }
 
-function controladorActualizarPedido($cpe, $fecha_pedido, $fecha_entrega, $estado, $Funcionario_cf, $Proveedor_cprovee) {
+function controladorActualizarPedido($cpe, $fecha_pedido, $fecha_entrega, $estado, $Funcionario_cf, $sucursal_csucursal, $Pedido_producto_cpp) {
     try {
-        Pedido::actualizarPedido($cpe, $fecha_pedido, $fecha_entrega, $estado, $Funcionario_cf, $Proveedor_cprovee);
+        Pedido::actualizarPedido($cpe, $fecha_pedido, $fecha_entrega, $estado, $Funcionario_cf, $sucursal_csucursal, $Pedido_producto_cpp);
         echo "Pedido actualizado correctamente.";
     } catch (Exception $e) {
         echo "Error al actualizar pedido: " . $e->getMessage();
@@ -35,6 +35,7 @@ function controladorEliminarPedido($cpe) {
         echo "Error al eliminar pedido: " . $e->getMessage();
     }
 }
+
 function controladorSeleccionarPedido($cpe) {
     try {
         return Pedido::seleccionarPedido($cpe);
@@ -42,6 +43,4 @@ function controladorSeleccionarPedido($cpe) {
         echo "Error al seleccionar el pedido: " . $e->getMessage();
     }
 }
-
-
 ?>

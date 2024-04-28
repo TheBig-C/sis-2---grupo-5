@@ -6,15 +6,17 @@ class Pedido {
     private $fecha_entrega;
     private $estado;
     private $Funcionario_cf;
-    private $Proveedor_cprovee;
+    private $sucursal_csucursal;
+    private $Pedido_producto_cpp;
 
-    public function __construct($cpe, $fecha_pedido, $fecha_entrega, $estado, $Funcionario_cf, $Proveedor_cprovee) {
+    public function __construct($cpe, $fecha_pedido, $fecha_entrega, $estado, $Funcionario_cf, $sucursal_csucursal, $Pedido_producto_cpp) {
         $this->cpe = $cpe;
         $this->fecha_pedido = $fecha_pedido;
         $this->fecha_entrega = $fecha_entrega;
         $this->estado = $estado;
         $this->Funcionario_cf = $Funcionario_cf;
-        $this->Proveedor_cprovee = $Proveedor_cprovee;
+        $this->sucursal_csucursal = $sucursal_csucursal;
+        $this->Pedido_producto_cpp = $Pedido_producto_cpp;
     }
 
     // Getters and setters...
@@ -58,24 +60,34 @@ class Pedido {
         $this->Funcionario_cf = $Funcionario_cf;
     }
 
-    public function getProveedorCprovee() {
-        return $this->Proveedor_cprovee;
+    public function getSucursalCsucursal() {
+        return $this->sucursal_csucursal;
     }
 
-    public function setProveedorCprovee($Proveedor_cprovee) {
-        $this->Proveedor_cprovee = $Proveedor_cprovee;
+    public function setSucursalCsucursal($sucursal_csucursal) {
+        $this->sucursal_csucursal = $sucursal_csucursal;
     }
+
+    public function getPedidoProductoCpp() {
+        return $this->Pedido_producto_cpp;
+    }
+
+    public function setPedidoProductoCpp($Pedido_producto_cpp) {
+        $this->Pedido_producto_cpp = $Pedido_producto_cpp;
+    }
+
     // Métodos CRUD
-    public static function insertarPedido($cpe, $fecha_pedido, $fecha_entrega, $estado, $Funcionario_cf, $Proveedor_cprovee) {
+    public static function insertarPedido($cpe, $fecha_pedido, $fecha_entrega, $estado, $Funcionario_cf, $sucursal_csucursal, $Pedido_producto_cpp) {
         $conn = conexion();
         $cpe = pg_escape_string($conn, $cpe);
         $fecha_pedido = pg_escape_string($conn, $fecha_pedido);
         $fecha_entrega = pg_escape_string($conn, $fecha_entrega);
         $estado = pg_escape_string($conn, $estado);
         $Funcionario_cf = pg_escape_string($conn, $Funcionario_cf);
-        $Proveedor_cprovee = pg_escape_string($conn, $Proveedor_cprovee);
+        $sucursal_csucursal = pg_escape_string($conn, $sucursal_csucursal);
+        $Pedido_producto_cpp = pg_escape_string($conn, $Pedido_producto_cpp);
 
-        $query = "INSERT INTO Pedido (cpe, fecha_pedido, fecha_entrega, estado, Funcionario_cf, Proveedor_cprovee) VALUES ('$cpe', '$fecha_pedido', '$fecha_entrega', '$estado', '$Funcionario_cf', '$Proveedor_cprovee')";
+        $query = "INSERT INTO Pedido (cpe, fecha_pedido, fecha_entrega, estado, Funcionario_cf, sucursal_csucursal, Pedido_producto_cpp) VALUES ('$cpe', '$fecha_pedido', '$fecha_entrega', '$estado', '$Funcionario_cf', '$sucursal_csucursal', '$Pedido_producto_cpp')";
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Error al insertar el pedido.\n";
@@ -85,27 +97,28 @@ class Pedido {
 
     public static function seleccionarTodosLosPedidos() {
         $conn = conexion();
-        $query = "SELECT * FROM Pedidos";
+        $query = "SELECT * FROM Pedido";
         $result = pg_query($conn, $query);
         $pedidos = [];
 
         while ($pedidoData = pg_fetch_assoc($result)) {
-            $pedidos[] = new Pedido($pedidoData['cpe'], $pedidoData['fecha_pedido'], $pedidoData['fecha_entrega'], $pedidoData['estado'], $pedidoData['funcionario_cf'], $pedidoData['proveedor_cprovee']);
+            $pedidos[] = new Pedido($pedidoData['cpe'], $pedidoData['fecha_pedido'], $pedidoData['fecha_entrega'], $pedidoData['estado'], $pedidoData['Funcionario_cf'], $pedidoData['sucursal_csucursal'], $pedidoData['Pedido_producto_cpp']);
         }
 
         return $pedidos;
     }
 
-    public static function actualizarPedido($cpe, $fecha_pedido, $fecha_entrega, $estado, $Funcionario_cf, $Proveedor_cprovee) {
+    public static function actualizarPedido($cpe, $fecha_pedido, $fecha_entrega, $estado, $Funcionario_cf, $sucursal_csucursal, $Pedido_producto_cpp) {
         $conn = conexion();
         $cpe = pg_escape_string($conn, $cpe);
         $fecha_pedido = pg_escape_string($conn, $fecha_pedido);
         $fecha_entrega = pg_escape_string($conn, $fecha_entrega);
         $estado = pg_escape_string($conn, $estado);
         $Funcionario_cf = pg_escape_string($conn, $Funcionario_cf);
-        $Proveedor_cprovee = pg_escape_string($conn, $Proveedor_cprovee);
+        $sucursal_csucursal = pg_escape_string($conn, $sucursal_csucursal);
+        $Pedido_producto_cpp = pg_escape_string($conn, $Pedido_producto_cpp);
 
-        $query = "UPDATE Pedido SET fecha_pedido = '$fecha_pedido', fecha_entrega = '$fecha_entrega', estado = '$estado', funcionario_cf = '$Funcionario_cf', Proveedor_cprovee = '$Proveedor_cprovee' WHERE cpe = '$cpe'";
+        $query = "UPDATE Pedido SET fecha_pedido = '$fecha_pedido', fecha_entrega = '$fecha_entrega', estado = '$estado', Funcionario_cf = '$Funcionario_cf', sucursal_csucursal = '$sucursal_csucursal', Pedido_producto_cpp = '$Pedido_producto_cpp' WHERE cpe = '$cpe'";
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Error al actualizar el pedido.\n";
@@ -124,6 +137,7 @@ class Pedido {
             exit;
         }
     }
+
     public static function seleccionarPedido($cpe) {
         $conn = conexion();
         $cpe = pg_escape_string($conn, $cpe);
@@ -146,13 +160,13 @@ class Pedido {
             $pedidoData['fecha_pedido'],
             $pedidoData['fecha_entrega'],
             $pedidoData['estado'],
-            $pedidoData['funcionario_cf'],
-            $pedidoData['proveedor_cprovee']
+            $pedidoData['Funcionario_cf'],
+            $pedidoData['sucursal_csucursal'],
+            $pedidoData['Pedido_producto_cpp']
         );
     
         return $pedido;
     }
-    
 }
 
 ?>
