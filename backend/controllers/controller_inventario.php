@@ -1,9 +1,9 @@
 <?php
 include_once 'C:\xampp\htdocs\sis2-ketal\backend\models\classes.php';
 
-function controladorInsertarInventario($cinv, $cantidad, $estado, $sucursal_csucursal, $Producto_cp) {
+function controladorInsertarInventario( $cantidad, $estado, $sucursal_csucursal, $Producto_cp) {
     try {
-        Inventario::insertarInventario($cinv, $cantidad, $estado, $sucursal_csucursal, $Producto_cp);
+        Inventario::insertarInventario( $cantidad, $estado, $sucursal_csucursal, $Producto_cp);
         echo "Inventario insertado correctamente.";
     } catch (Exception $e) {
         echo "Error al insertar en el inventario: " . $e->getMessage();
@@ -17,7 +17,20 @@ function controladorSeleccionarInventario() {
         echo "Error al seleccionar el inventario: " . $e->getMessage();
     }
 }
-
+function controladorSeleccionarInventarioIndividual($civ) {
+    try {
+        return Inventario::seleccionarInventarioIndividual($civ);
+    } catch (Exception $e) {
+        echo "Error al seleccionar el inventario: " . $e->getMessage();
+    }
+}
+function controladorSeleccionarInventarioPorProductoYSucursal($cp,$csu) {
+    try {
+        return Inventario::seleccionarInventarioPorProductoYSucursal($cp,$csu);
+    } catch (Exception $e) {
+        echo "Error al seleccionar el inventario: " . $e->getMessage();
+    }
+}
 function controladorActualizarInventario($cinv, $cantidad, $estado, $sucursal_csucursal, $Producto_cp) {
     try {
         Inventario::actualizarInventario($cinv, $cantidad, $estado, $sucursal_csucursal, $Producto_cp);

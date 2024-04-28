@@ -94,7 +94,18 @@ class Producto {
 
         return $productos;
     }
+    public static function seleccionarTodosLosProductosSucursal($csu) {
+        $conn = conexion();
+        $query = "SELECT a.cp,a.nombre,a.preciocompra,a.precioventa,a.categoria,a.proveedor_cproveedor FROM producto a, sucursal b, inventario c where a.cp=c.producto_cp and b.csucursal=c.sucursal_csucursal and b.csucursal=$csu and c.estado='true'";
+        $result = pg_query($conn, $query);
+        $productos = [];
 
+        while ($productoData = pg_fetch_assoc($result)) {
+            $productos[] = new Producto($productoData['cp'], $productoData['nombre'], $productoData['preciocompra'], $productoData['precioventa'],$productoData['categoria'],$productoData['proveedor_cproveedor']);
+        }
+
+        return $productos;
+    }
     public static function actualizarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $Proveedor_cproveedor) {
         $conn = conexion();
         $cp = pg_escape_string($conn, $cp);

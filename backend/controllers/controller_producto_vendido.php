@@ -1,15 +1,21 @@
 <?php
 include_once('C:\xampp\htdocs\sis2-Ketal\backend\models\ProductoVendido.php');
 
-function controladorInsertarProductoVendido($cpv, $venta_cv, $producto_cp) {
+function controladorInsertarProductoVendido($cpv,$cantidad, $venta_cv, $producto_cp) {
     try {
-        ProductoVendido::insertarProductoVendido($cpv, $venta_cv, $producto_cp);
+        ProductoVendido::insertarProductoVendido($cpv,$cantidad, $venta_cv, $producto_cp);
         echo "Producto vendido insertado correctamente.";
     } catch (Exception $e) {
         echo "Error al insertar en los productos vendidos: " . $e->getMessage();
     }
 }
-
+function controllerUlitmoProductovendido() {
+    try {
+        return ProductoVendido::ulitmoProductovendido();
+    } catch (Exception $e) {
+        echo "Error al seleccionar todos los clientes: " . $e->getMessage();
+    }
+}
 function controladorSeleccionarProductosVendidos() {
     try {
         return ProductoVendido::seleccionarProductosVendidos();
@@ -26,9 +32,9 @@ function controladorSeleccionarProductosVendidosPorVenta($venta_cv) {
 }
 
 
-function controladorActualizarProductoVendido($cpv, $venta_cv, $producto_cp) {
+function controladorActualizarProductoVendido($cpv,$cantidad, $venta_cv, $producto_cp) {
     try {
-        ProductoVendido::actualizarProductoVendido($cpv, $venta_cv, $producto_cp);
+        ProductoVendido::actualizarProductoVendido($cpv, $cantidad,$venta_cv, $producto_cp);
         echo "Producto vendido actualizado correctamente.";
     } catch (Exception $e) {
         echo "Error al actualizar el producto vendido: " . $e->getMessage();
