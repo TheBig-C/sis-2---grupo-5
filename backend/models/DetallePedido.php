@@ -12,6 +12,21 @@ class DetallePedido {
         $this->producto_cp = $producto_cp;
         $this->proveedor_cproveedor = $proveedor_cproveedor;
     }
+    public function getCpp() {
+        return $this->cpp;
+    }
+
+    public function getCantidad() {
+        return $this->cantidad;
+    }
+
+    public function getProducto_cp() {
+        return $this->producto_cp;
+    }
+
+    public function getProveedor_cproveedor() {
+        return $this->proveedor_cproveedor;
+    }
 
     // Métodos CRUD con formato estático
     public static function insertarDetallePedido($cantidad, $producto_cp, $proveedor_cproveedor) {
@@ -32,14 +47,16 @@ class DetallePedido {
     
     public static function seleccionarDetallePedido() {
         $conn = conexion();
-        $query = "SELECT * FROM pedido_producto";
-
+        $query = "SELECT * FROM pedido_producto pp
+                  LEFT JOIN Pedido p ON pp.cpp = p.Pedido_producto_cpp
+                  WHERE p.Pedido_producto_cpp IS NULL";
+    
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Ocurrió un error al seleccionar el detalle del pedido.\n";
             exit;
         }
-
+    
         $detallesPedido = [];
         while ($detallePedidoData = pg_fetch_assoc($result)) {
             $detallesPedido[] = new DetallePedido(
@@ -49,9 +66,10 @@ class DetallePedido {
                 $detallePedidoData['proveedor_cproveedor']
             );
         }
-
+    
         return $detallesPedido;
     }
+    
 
     public static function actualizarDetallePedido($cpp, $cantidad, $producto_cp, $proveedor_cproveedor) {
         $conn = conexion();
