@@ -129,7 +129,7 @@ if(isset($_POST['eliminar_venta'])) {
                                         // Obtener los productos de la venta actual
                                         $productosVendidos = controladorSeleccionarProductosVendidosPorVenta($venta->getCv());
                                         foreach ($productosVendidos as $productoVendido): 
-                                            // Aquí podrías incluir la lógica necesaria para obtener más detalles del producto
+                                           
                                             $producto = controladorSeleccionarProducto($productoVendido->getProductoCp());
                                             echo $producto->getNombre(). '<br>';
                                         ?>
