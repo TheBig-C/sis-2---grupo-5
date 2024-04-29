@@ -10,12 +10,10 @@
 <body>
     <header class="header">
         <nav class="navbar">
-            <img src="frontend/assets/ketal.png">
-            <a href="productos.php"><b>Productos</b></a>
-            <span> | </span>
-            <a href="ventas.php"><b>Ventas</b></a>
+            <img src="/sis2-Ketal//frontend/assets/ketal.png">
+            <span>VENTAS</span>
         </nav>
-        <a href="login.html"><b>Iniciar Sesion</b></a>
+        <a href="../pagina_principal/pagina_opciones.php"><b>Menú</b></a>
     </header>
 </body>
 </html>

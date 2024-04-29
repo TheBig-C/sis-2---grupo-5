@@ -32,14 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="/sis2-Ketal/frontend/css/style.css">
 </head>
 <body>
-    <header class="header">
+<header class="header">
         <nav class="navbar">
             <img src="/sis2-Ketal//frontend/assets/ketal.png">
-            <a href="view_producto.php"><b>Productos</b></a>
-            <span> | </span>
-            <a href="view_ventas.php"><b>Ventas</b></a>
+            <span>Registrar Producto</span>
         </nav>
-        <a href="login.html"><b>Iniciar Sesion</b></a>
+        <a href="../pagina_principal/pagina_opciones.php"><b>Menú</b></a>
     </header>
     <main>
         <div class="container">

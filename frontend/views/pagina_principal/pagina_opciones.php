@@ -12,26 +12,39 @@
             padding: 0;
             overflow-x: hidden; 
         }
-        .title-bar {
-            background-color: white;
-            color: black;
-            padding: 10px 20px; 
+        .header {
             display: flex;
-            align-items: center;
-            justify-content: start;
             position: fixed;
             top: 0;
-            left: 0;
-            right: 0;
+            left:0;
+            width: 100%;
+            padding: 0vh 5vh;
+            background: aliceblue;
+            justify-content: space-between;
+            align-items: center;
             z-index: 1000;
-            background-image: url('../../../frontend/assets/ketal.png'); 
-            background-repeat: no-repeat;
-            background-position: left 10px center; 
-            background-size: 100px; 
-            justify-content: space-between; /* Alinea los elementos a los extremos */
         }
-        .title-bar h1 {
-            margin-left: 100px; 
+        .header a {
+            color: #fff;
+            font-weight: 30;
+            text-decoration: none;
+            font-size: 3vh;
+            background-color: #ef233c;
+            border-radius: 10px;
+            padding: 1vh 2vh;
+        }
+        .header a:hover {
+            background-color: #d90429;
+        }
+        .navbar span {
+            color: #14141E;
+            padding-left: 3vh;
+            padding-right: 3vh;
+            font-size: 6vh;
+        }
+        .navbar img {
+            width: 15vh;
+            height: auto;
         }
         .container.mt-5 {
             padding-top: 50px; 
@@ -59,45 +72,35 @@
                 width: calc(33.333% - 20px);
             }
             .btn-option-large {
-                width: calc(50% - 20px);
-               
+                width: calc(25% - 20px);
             }
-        }
-        .menu-button {
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-            background-color: #ef233c; 
-            color: white;
-            border: none; 
-            border-radius: 5px; 
-            cursor: pointer; 
-        }
-
-        .menu-button:hover {
-            background-color: #d90429; 
         }
     </style>
 </head>
 <body class="body-suc">
-<div class="title-bar">
-    <h1>Menú de Opciones</h1>
-    <button class="menu-button" onclick="window.location.href=('../../../frontend/views/auth/login.html')">Salir</button>
-</div>
+    <header class="header">
+        <nav class="navbar">
+            <img src="/sis2-Ketal//frontend/assets/ketal.png">
+            <span>Menú de Opciones</span>
+        </nav>
+        <a href="../auth/login.html"><b>Salir</b></a>
+    </header>
     <div class="container mt-5">
         <div class="row text-center options-container">
             <!-- Botones de las opciones en la primera fila -->
-            <a href="../view_ventas.php" class="btn btn-option">REGISTRAR VENTA</a>
-            <a href="../registrar_pedido.php" class="btn btn-option">REGISTRAR PEDIDO</a>
-            <a href="../productos/view_register_product.php" class="btn btn-option">AGREGAR PRODUCTOS NUEVO</a>
+            <a href="../ventas/view_realizar_venta.php" class="btn btn-option">REGISTRAR VENTA</a>
+            <a href="../pedido/view_pedido.php" class="btn btn-option">REALIZAR PEDIDO</a>
+            <a href="../productos/view_register_product.php" class="btn btn-option">AGREGAR NUEVO PRODUCTO</a>
         </div>
         <div class="row text-center options-container">
             <!-- Botones de las opciones en la segunda fila -->
             <a href="../funcionario/view_fun.php" class="btn btn-option btn-option-large">AGREGAR EMPLEADO</a>
-            <a href="../view_pedido.php" class="btn btn-option btn-option-large">PEDIDOS</a>
+            <a href="?" class="btn btn-option btn-option-large">PEDIDOS</a>
+            <a href="../inventario/view_inventario.php" class="btn btn-option btn-option-large">INVENTARIO</a>
+            <a href="../ventas/view_ventas.php" class="btn btn-option btn-option-large">VENTAS</a>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
