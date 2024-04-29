@@ -15,7 +15,7 @@
         height: 60px; /* Asegura altura suficiente para los elementos */
     }
     .title-bar img { width: 80px; } /* Ajusta tamaño del logo */
-    .container-fluid { padding-top: 70px; } /* Ajusta el padding superior */
+    .container-fluid { padding-top: 100px; } /* Ajusta el padding superior */
     .menu-button {
         background-color: #ef233c; color: white; border: none;
         padding: 0.5rem 1rem; font-size: 1rem; border-radius: 5px; cursor: pointer;
@@ -75,11 +75,13 @@
     $sucursales = getSucursalesOptions();
     ?>
     
-    <div class="title-bar">
-        <img src="../../../frontend/assets/ketal.png" alt="Logo">
-        <h1>Realizar Pedidos</h1>
-        <button class="menu-button" onclick="window.location.href='../../../frontend/views/pagina_principal/pagina_opciones.php'">Menu</button>
-        
+    <header class="header">
+        <nav class="navbar">
+            <img src="/sis2-Ketal//frontend/assets/ketal.png">
+            <span>Pedidos</span>
+        </nav>
+        <a href="../pagina_principal/pagina_opciones.php"><b>Menú</b></a>
+    </header>
     </div>
     <div class="container-fluid">
         <div class="row">
