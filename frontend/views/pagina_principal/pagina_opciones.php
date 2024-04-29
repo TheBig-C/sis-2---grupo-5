@@ -89,24 +89,15 @@
         <div class="row text-center options-container">
             <!-- Botones de las opciones en la primera fila -->
             <a href="../ventas/view_realizar_venta.php" class="btn btn-option">REGISTRAR VENTA</a>
-<<<<<<< HEAD
-            <a href="../pedido/agregar_pedido.php" class="btn btn-option">REGISTRAR PEDIDO</a>
-            <a href="../productos/view_register_product.php" class="btn btn-option">AGREGAR PRODUCTOS NUEVO</a>
-=======
             <a href="../pedido/view_pedido.php" class="btn btn-option">REALIZAR PEDIDO</a>
             <a href="../productos/view_register_product.php" class="btn btn-option">AGREGAR NUEVO PRODUCTO</a>
->>>>>>> f44566ca14438661ab51170478c578166682d66d
         </div>
         <div class="row text-center options-container">
             <!-- Botones de las opciones en la segunda fila -->
             <a href="../funcionario/view_fun.php" class="btn btn-option btn-option-large">AGREGAR EMPLEADO</a>
-<<<<<<< HEAD
-            <a href="../pedido/view_pedido.php" class="btn btn-option btn-option-large">PEDIDOS</a>
-=======
             <a href="?" class="btn btn-option btn-option-large">PEDIDOS</a>
             <a href="../inventario/view_inventario.php" class="btn btn-option btn-option-large">INVENTARIO</a>
             <a href="../ventas/view_ventas.php" class="btn btn-option btn-option-large">VENTAS</a>
->>>>>>> f44566ca14438661ab51170478c578166682d66d
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
