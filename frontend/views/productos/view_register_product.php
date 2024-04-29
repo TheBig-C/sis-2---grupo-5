@@ -46,9 +46,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <br>
                 <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4 login-container">
                     <form action="" method="post" enctype="multipart/form-data">
+                        <?php
+                            include_once 'C:\xampp\htdocs\sis2-ketal\backend\controllers\controllers.php';
+                            $inv=0;
+                            $h=150;
+                            $w=150;
+                            $apiKey = 'AIzaSyD_VD0W_aE-tnFKTJwSfFIzGmD3BrIgYkU';
+                            $cx = 'b6b21b544d2f945bf';
+                                   
+                            $serializedSucursal = $_COOKIE['sucursal'];
+                            $suc = unserialize($serializedSucursal);
+                            $aux= $suc->getCsucursal();
+                            $aux2= $suc->getZona();
+                        ?>
                         <div class="form-group">
-                            <p> Sucursal: </p>
-                            <input type="text" name="cp" class="form-control" placeholder="PONER SUCURSAL" readonly required>
+                            <p> Sucursal: <?php echo $aux2; ?> </p>
+                            <input type="text" name="cp" class="form-control" placeholder="<?php echo $aux; ?>" readonly required>
+
                         </div>
                         <div class="form-group">
                             <p> Codigo de producto: </p>
