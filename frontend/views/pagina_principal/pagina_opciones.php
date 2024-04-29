@@ -95,7 +95,7 @@
         <div class="row text-center options-container">
             <!-- Botones de las opciones en la segunda fila -->
             <a href="../funcionario/view_fun.php" class="btn btn-option btn-option-large">AGREGAR EMPLEADO</a>
-            <a href="?" class="btn btn-option btn-option-large">PEDIDOS</a>
+            <a href="../estado_pedido/view_epedido.php" class="btn btn-option btn-option-large">PEDIDOS</a>
             <a href="../inventario/view_inventario.php" class="btn btn-option btn-option-large">INVENTARIO</a>
             <a href="../ventas/view_ventas.php" class="btn btn-option btn-option-large">VENTAS</a>
         </div>
