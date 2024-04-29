@@ -1,5 +1,3 @@
--- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2024-04-25 02:30:08.494
 
 -- tables
 -- Table: Cliente
@@ -38,8 +36,8 @@ CREATE TABLE Pedido (
     fecha_entrega date  NOT NULL,
     estado varchar(30)  NOT NULL,
     Funcionario_cf int  NOT NULL,
-    Proveedor_cproveedor varchar(30)  NOT NULL,
     sucursal_csucursal int  NOT NULL,
+    Pedido_producto_cpp int  NOT NULL,
     CONSTRAINT Pedido_pk PRIMARY KEY (cpe)
 );
 
@@ -48,10 +46,9 @@ CREATE TABLE Pedido_producto (
     cpp int  NOT NULL,
     cantidad int  NOT NULL,
     Producto_cp int  NOT NULL,
-    Pedido_cpe int  NOT NULL,
+    Proveedor_cproveedor varchar(30)  NOT NULL,
     CONSTRAINT Pedido_producto_pk PRIMARY KEY (cpp)
 );
-
 -- Table: Producto
 CREATE TABLE Producto (
     cp int  NOT NULL,
@@ -66,6 +63,7 @@ CREATE TABLE Producto (
 -- Table: ProductoVendido
 CREATE TABLE ProductoVendido (
     cpv int  NOT NULL,
+    cantidad int  NOT NULL,
     Venta_cv int  NOT NULL,
     Producto_cp int  NOT NULL,
     CONSTRAINT ProductoVendido_pk PRIMARY KEY (cpv)
@@ -83,13 +81,12 @@ CREATE TABLE Venta (
     cv int  NOT NULL,
     fecha date  NOT NULL,
     hora time  NOT NULL,
-    etado boolean  NOT NULL,
-    metodo varchar(30)  NOT NULL,
+    estado boolean  NOT NULL,
     total float(2)  NOT NULL,
     totalEntregado float(2)  NOT NULL,
     tipodepago varchar(50)  NOT NULL,
-    Funcionario_cf int  NOT NULL,
     Cliente_ci int  NOT NULL,
+    Funcionario_cf int  NOT NULL,
     CONSTRAINT Venta_pk PRIMARY KEY (cv)
 );
 
@@ -133,8 +130,16 @@ ALTER TABLE Pedido ADD CONSTRAINT Pedido_Funcionario
     INITIALLY IMMEDIATE
 ;
 
--- Reference: Pedido_Proveedor (table: Pedido)
-ALTER TABLE Pedido ADD CONSTRAINT Pedido_Proveedor
+-- Reference: Pedido_Pedido_producto (table: Pedido)
+ALTER TABLE Pedido ADD CONSTRAINT Pedido_Pedido_producto
+    FOREIGN KEY (Pedido_producto_cpp)
+    REFERENCES Pedido_producto (cpp)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: Pedido_producto_Proveedor (table: Pedido_producto)
+ALTER TABLE Pedido_producto ADD CONSTRAINT Pedido_producto_Proveedor
     FOREIGN KEY (Proveedor_cproveedor)
     REFERENCES Proveedor (cproveedor)  
     NOT DEFERRABLE 
@@ -189,14 +194,6 @@ ALTER TABLE Venta ADD CONSTRAINT Venta_Funcionario
     INITIALLY IMMEDIATE
 ;
 
--- Reference: entity_1_Pedido (table: Pedido_producto)
-ALTER TABLE Pedido_producto ADD CONSTRAINT entity_1_Pedido
-    FOREIGN KEY (Pedido_cpe)
-    REFERENCES Pedido (cpe)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
-;
-
 -- Reference: entity_1_Producto (table: Pedido_producto)
 ALTER TABLE Pedido_producto ADD CONSTRAINT entity_1_Producto
     FOREIGN KEY (Producto_cp)
@@ -206,4 +203,12 @@ ALTER TABLE Pedido_producto ADD CONSTRAINT entity_1_Producto
 ;
 
 -- End of file.
+
+
+
+--DESPUES DE CORRER LA BASE DE DATOS SI O SI PONEN ESTO
+
+ALTER TABLE pedido_producto ALTER COLUMN cpp ADD GENERATED ALWAYS AS IDENTITY;
+ALTER TABLE pedido ALTER COLUMN cpe ADD GENERATED ALWAYS AS IDENTITY;
+ALTER TABLE inventario ALTER COLUMN cinv ADD GENERATED ALWAYS AS IDENTITY;
 

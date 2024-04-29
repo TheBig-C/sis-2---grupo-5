@@ -3,66 +3,83 @@ class DetallePedido {
     
     private $cpp;
     private $cantidad;
-    private $Producto_cp;
-    private $Pedido_cpe;
+    private $producto_cp;
+    private $proveedor_cproveedor;
 
-    public function __construct($cpp, $cantidad, $Producto_cp, $Pedido_cpe) {
+    public function __construct($cpp, $cantidad, $producto_cp, $proveedor_cproveedor) {
         $this->cpp = $cpp;
         $this->cantidad = $cantidad;
-        $this->Producto_cp = $Producto_cp;
-        $this->Pedido_cpe = $Pedido_cpe;
+        $this->producto_cp = $producto_cp;
+        $this->proveedor_cproveedor = $proveedor_cproveedor;
+    }
+    public function getCpp() {
+        return $this->cpp;
+    }
+
+    public function getCantidad() {
+        return $this->cantidad;
+    }
+
+    public function getProducto_cp() {
+        return $this->producto_cp;
+    }
+
+    public function getProveedor_cproveedor() {
+        return $this->proveedor_cproveedor;
     }
 
     // Métodos CRUD con formato estático
-    public static function insertarDetallePedido($cpp, $cantidad, $Producto_cp, $Pedido_cpe) {
+    public static function insertarDetallePedido($cantidad, $producto_cp, $proveedor_cproveedor) {
         $conn = conexion();
-
-        $cpp = pg_escape_string($conn, $cpp);
+    
         $cantidad = pg_escape_string($conn, $cantidad);
-        $Producto_cp = pg_escape_string($conn, $Producto_cp);
-        $Pedido_cpe = pg_escape_string($conn, $Pedido_cpe);
-
-        $query = "INSERT INTO pedido_producto (cpp, cantidad, Producto_cp, Pedido_cpe) VALUES ('$cpp', '$cantidad', '$Producto_cp', '$Pedido_cpe')";
-
+        $producto_cp = pg_escape_string($conn, $producto_cp);
+        $proveedor_cproveedor = pg_escape_string($conn, $proveedor_cproveedor);
+    
+        $query = "INSERT INTO pedido_producto (cantidad, Producto_cp, Proveedor_cproveedor) VALUES ('$cantidad', '$producto_cp', '$proveedor_cproveedor')";
+    
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Ocurrió un error al insertar en el detalle del pedido.\n";
             exit;
         }
     }
-
+    
     public static function seleccionarDetallePedido() {
         $conn = conexion();
-        $query = "SELECT * FROM pedido_producto";
-
+        $query = "SELECT * FROM pedido_producto pp
+                  LEFT JOIN Pedido p ON pp.cpp = p.Pedido_producto_cpp
+                  WHERE p.Pedido_producto_cpp IS NULL";
+    
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Ocurrió un error al seleccionar el detalle del pedido.\n";
             exit;
         }
-
+    
         $detallesPedido = [];
         while ($detallePedidoData = pg_fetch_assoc($result)) {
             $detallesPedido[] = new DetallePedido(
                 $detallePedidoData['cpp'],
                 $detallePedidoData['cantidad'],
-                $detallePedidoData['Producto_cp'],
-                $detallePedidoData['Pedido_cpe']
+                $detallePedidoData['producto_cp'],
+                $detallePedidoData['proveedor_cproveedor']
             );
         }
-
+    
         return $detallesPedido;
     }
+    
 
-    public static function actualizarDetallePedido($cpp, $cantidad, $Producto_cp, $Pedido_cpe) {
+    public static function actualizarDetallePedido($cpp, $cantidad, $producto_cp, $proveedor_cproveedor) {
         $conn = conexion();
 
         $cpp = pg_escape_string($conn, $cpp);
         $cantidad = pg_escape_string($conn, $cantidad);
-        $Producto_cp = pg_escape_string($conn, $Producto_cp);
-        $Pedido_cpe = pg_escape_string($conn, $Pedido_cpe);
+        $producto_cp = pg_escape_string($conn, $producto_cp);
+        $proveedor_cproveedor = pg_escape_string($conn, $proveedor_cproveedor);
 
-        $query = "UPDATE pedido_producto SET cantidad = '$cantidad', Producto_cp = '$Producto_cp', Pedido_cpe = '$Pedido_cpe' WHERE cpp = '$cpp'";
+        $query = "UPDATE pedido_producto SET cantidad = '$cantidad', Producto_cp = '$producto_cp', Proveedor_cproveedor = '$proveedor_cproveedor' WHERE cpp = '$cpp'";
 
         $result = pg_query($conn, $query);
         if (!$result) {

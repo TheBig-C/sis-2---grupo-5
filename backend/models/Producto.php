@@ -3,23 +3,18 @@
 class Producto {
     private $cp;
     private $nombre;
-    private $cantidad;
-    private $estado;
     private $precioCompra;
     private $precioVenta;
-    private $inventario;
     private $categoria;
-    private $sucursal_csucursal;
-    private $Proveedor_cprovee;
+    private $Proveedor_cproveedor;
 
-    public function __construct($cp, $nombre, $cantidad, $estado, $precioCompra, $precioVenta, $inventario, $categoria, $sucursal_csucursal, $Proveedor_cprovee) {
+    public function __construct($cp, $nombre, $precioCompra, $precioVenta, $categoria, $Proveedor_cproveedor) {
         $this->cp = $cp;
         $this->nombre = $nombre;
         $this->precioCompra = $precioCompra;
         $this->precioVenta = $precioVenta;
         $this->categoria = $categoria;
-        $this->sucursal_csucursal = $sucursal_csucursal;
-        $this->Proveedor_cprovee = $Proveedor_cprovee;
+        $this->Proveedor_cproveedor = $Proveedor_cproveedor;
     }
 
     // Getters and setters...
@@ -38,9 +33,6 @@ class Producto {
     public function setNombre($nombre) {
         $this->nombre = $nombre;
     }
-
-   
-
     public function getPrecioCompra() {
         return $this->precioCompra;
     }
@@ -57,8 +49,6 @@ class Producto {
         $this->precioVenta = $precioVenta;
     }
 
-   
-
     public function getCategoria() {
         return $this->categoria;
     }
@@ -67,33 +57,24 @@ class Producto {
         $this->categoria = $categoria;
     }
 
-    public function getSucursalCsucursal() {
-        return $this->sucursal_csucursal;
+    public function getProveedorCproveedor() {
+        return $this->Proveedor_cproveedor;
     }
 
-    public function setSucursalCsucursal($sucursal_csucursal) {
-        $this->sucursal_csucursal = $sucursal_csucursal;
+    public function setProveedorCproveedor($Proveedor_cproveedor) {
+        $this->Proveedor_cproveedor = $Proveedor_cproveedor;
     }
 
-    public function getProveedorCprovee() {
-        return $this->Proveedor_cprovee;
-    }
-
-    public function setProveedorCprovee($Proveedor_cprovee) {
-        $this->Proveedor_cprovee = $Proveedor_cprovee;
-    }
-    // Métodos CRUD
-    public static function insertarProducto($cp, $nombre, $cantidad, $estado, $precioCompra, $precioVenta, $inventario, $categoria, $sucursal_csucursal, $Proveedor_cprovee) {
+    public static function insertarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $Proveedor_cproveedor) {
         $conn = conexion();
         $cp = pg_escape_string($conn, $cp);
         $nombre = pg_escape_string($conn, $nombre);
         $precioCompra = pg_escape_string($conn, $precioCompra);
         $precioVenta = pg_escape_string($conn, $precioVenta);
         $categoria = pg_escape_string($conn, $categoria);
-        $sucursal_csucursal = pg_escape_string($conn, $sucursal_csucursal);
-        $Proveedor_cprovee = pg_escape_string($conn, $Proveedor_cprovee);
+        $Proveedor_cprovee = pg_escape_string($conn, $Proveedor_cproveedor);
 
-        $query = "INSERT INTO Producto (cp, nombre, precioCompra, precioVenta, categoria, sucursal_csucursal, Proveedor_cprovee) VALUES ('$cp', '$nombre', $precioCompra, $precioVenta, '$categoria', '$sucursal_csucursal', '$Proveedor_cprovee')";
+        $query = "INSERT INTO Producto (cp, nombre, precioCompra, precioVenta,categoria, proveedor_cproveedor) VALUES ('$cp', '$nombre', $precioCompra, $precioVenta, '$categoria', '$Proveedor_cproveedor')";
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Error al insertar el producto.\n";
@@ -108,23 +89,33 @@ class Producto {
         $productos = [];
 
         while ($productoData = pg_fetch_assoc($result)) {
-            $productos[] = new Producto($productoData['cp'], $productoData['nombre'], $productoData['precioCompra'], $productoData['precioVenta'], $productoData['categoria'], $productoData['sucursal_csucursal'], $productoData['Proveedor_cprovee']);
+            $productos[] = new Producto($productoData['cp'], $productoData['nombre'], $productoData['preciocompra'], $productoData['precioventa'],$productoData['categoria'],$productoData['proveedor_cproveedor']);
         }
 
         return $productos;
     }
+    public static function seleccionarTodosLosProductosSucursal($csu) {
+        $conn = conexion();
+        $query = "SELECT a.cp,a.nombre,a.preciocompra,a.precioventa,a.categoria,a.proveedor_cproveedor FROM producto a, sucursal b, inventario c where a.cp=c.producto_cp and b.csucursal=c.sucursal_csucursal and b.csucursal=$csu and c.estado='true'";
+        $result = pg_query($conn, $query);
+        $productos = [];
 
-    public static function actualizarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $sucursal_csucursal, $Proveedor_cprovee) {
+        while ($productoData = pg_fetch_assoc($result)) {
+            $productos[] = new Producto($productoData['cp'], $productoData['nombre'], $productoData['preciocompra'], $productoData['precioventa'],$productoData['categoria'],$productoData['proveedor_cproveedor']);
+        }
+
+        return $productos;
+    }
+    public static function actualizarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $Proveedor_cproveedor) {
         $conn = conexion();
         $cp = pg_escape_string($conn, $cp);
-        $estado = pg_escape_string($conn, $estado);
+        $nombre= pg_escape_string($conn, $nombre);
         $precioCompra = pg_escape_string($conn, $precioCompra);
         $precioVenta = pg_escape_string($conn, $precioVenta);
         $categoria = pg_escape_string($conn, $categoria);
-        $sucursal_csucursal = pg_escape_string($conn, $sucursal_csucursal);
-        $Proveedor_cprovee = pg_escape_string($conn, $Proveedor_cprovee);
+        $Proveedor_cprovee = pg_escape_string($conn, $Proveedor_cproveedor);
 
-        $query = "UPDATE Producto SET nombre = '$nombre', precioCompra = $precioCompra, precioVenta = $precioVenta, categoria = '$categoria', sucursal_csucursal = '$sucursal_csucursal', Proveedor_cprovee = '$Proveedor_cprovee' WHERE cp = '$cp'";
+        $query = "UPDATE Producto SET nombre = '$nombre',  preciocompra = $precioCompra, precioventa = $precioVenta,  categoria = '$categoria', proveedor_cproveedor = '$Proveedor_cproveedor' WHERE cp = '$cp'";
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Error al actualizar el producto.\n";
@@ -159,18 +150,61 @@ class Producto {
             echo "No se encontró ningún producto con el código proporcionado.";
             return null;
         }
-    
         $producto = new Producto(
             $productoData['cp'],
             $productoData['nombre'],
-            $productoData['precioCompra'],
-            $productoData['precioVenta'],
+            $productoData['preciocompra'],
+            $productoData['precioventa'],
             $productoData['categoria'],
-            $productoData['sucursal_csucursal'],
-            $productoData['Proveedor_cprovee']
+            $productoData['proveedor_cproveedor']
         );
-    
         return $producto;
+    }
+    public static function obtenerProductoPorCodigo($codigo) {
+        $conn = conexion(); // Suponiendo que tienes una función para establecer la conexión a la base de datos
+        
+        $codigo = pg_escape_string($conn, $codigo); // Escapar el código para evitar inyección SQL
+        
+        $query = "SELECT * FROM Producto WHERE cp = '$codigo'"; // Consulta para seleccionar el producto con el código proporcionado
+        
+        $result = pg_query($conn, $query); // Ejecutar la consulta
+        if (!$result) {
+            echo "Error al obtener el producto con el código $codigo";
+            return null;
+        }
+        
+        $productoData = pg_fetch_assoc($result); // Obtener los datos del producto
+        if (!$productoData) {
+            echo "No se encontró ningún producto con el código proporcionado.";
+            return null;
+        }
+        
+        // Crear un objeto Producto con los datos obtenidos y devolverlo
+        $producto = new Producto(
+            $productoData['cp'],
+            $productoData['nombre'],
+            $productoData['preciocompra'],
+            $productoData['precioventa'],
+            $productoData['categoria'],
+            $productoData['proveedor_cproveedor']
+        );
+        
+        return $producto;
+    }
+
+    public static function obtenerCategorias() {
+        $conn = conexion();
+        $query = "SELECT DISTINCT categoria FROM Producto";
+        $result = pg_query($conn, $query);
+        $categorias = [];
+        if (!$result) {
+            echo "Error al obtener las categorías.\n";
+            exit;
+        }
+        while ($row = pg_fetch_assoc($result)) {
+            $categorias[] = $row['categoria'];
+        }
+        return $categorias;
     }
     
 }

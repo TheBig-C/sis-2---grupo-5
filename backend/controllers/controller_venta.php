@@ -1,15 +1,21 @@
 <?php
 include_once 'C:\xampp\htdocs\sis2-ketal\backend\models\classes.php';
 
-function controladorInsertarVenta($cv, $fecha, $hora, $estado, $metodo, $total, $totalEntregado, $tipodepago, $ci_cliente, $Funcionario_cf) {
+function controladorInsertarVenta($cv, $fecha, $hora, $estado, $total, $totalEntregado, $tipodepago, $ci_cliente, $Funcionario_cf) {
     try {
-        Venta::insertarVenta($cv, $fecha, $hora, $estado, $metodo, $total, $totalEntregado, $tipodepago, $ci_cliente, $Funcionario_cf);
+        Venta::insertarVenta($cv, $fecha, $hora, $estado, $total, $totalEntregado, $tipodepago, $ci_cliente, $Funcionario_cf);
         echo "Venta insertada correctamente.";
     } catch (Exception $e) {
         echo "Error al insertar venta: " . $e->getMessage();
     }
 }
-
+function controladorUltimaVenta() {
+    try {
+        return Venta::ultimoVenta();
+    } catch (Exception $e) {
+        echo "Error al seleccionar todos los clientes: " . $e->getMessage();
+    }
+}
 function controladorSeleccionarTodasLasVentas() {
     try {
         return Venta::seleccionarTodasLasVentas();
@@ -17,10 +23,17 @@ function controladorSeleccionarTodasLasVentas() {
         echo "Error al seleccionar todas las ventas: " . $e->getMessage();
     }
 }
-
-function controladorActualizarVenta($cv, $fecha, $hora, $estado, $metodo, $total, $totalEntregado, $tipodepago, $ci_cliente, $Funcionario_cf) {
+function controladorSeleccionarVentasPorCliente($ci_cliente) {
     try {
-        Venta::actualizarVenta($cv, $fecha, $hora, $estado, $metodo, $total, $totalEntregado, $tipodepago, $ci_cliente, $Funcionario_cf);
+        return Venta::seleccionarVentasPorCliente($ci_cliente);
+    } catch (Exception $e) {
+        echo "Error al buscar venta por cliente: " . $e->getMessage();
+    }
+}
+
+function controladorActualizarVenta($cv, $fecha, $hora, $estado, $total, $totalEntregado, $tipodepago, $ci_cliente, $Funcionario_cf) {
+    try {
+        Venta::actualizarVenta($cv, $fecha, $hora, $estado, $total, $totalEntregado, $tipodepago, $ci_cliente, $Funcionario_cf);
         echo "Venta actualizada correctamente.";
     } catch (Exception $e) {
         echo "Error al actualizar venta: " . $e-> getMessage();

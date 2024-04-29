@@ -1,9 +1,9 @@
 <?php
 include_once 'C:\xampp\htdocs\sis2-ketal\backend\models\classes.php';
 
-function controladorInsertarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $sucursal_csucursal, $Proveedor_cprovee) {
+function controladorInsertarProducto($cp, $nombre,  $precioCompra, $precioVenta, $categoria, $Proveedor_cprovee) {
     try {
-        Producto::insertarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $sucursal_csucursal, $Proveedor_cprovee);
+        Producto::insertarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria,  $Proveedor_cprovee);
         echo "Producto insertado correctamente.";
     } catch (Exception $e) {
         echo "Error al insertar producto: " . $e->getMessage();
@@ -17,10 +17,16 @@ function controladorSeleccionarTodosLosProductos() {
         echo "Error al seleccionar todos los productos: " . $e->getMessage();
     }
 }
-
-function controladorActualizarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $sucursal_csucursal, $Proveedor_cprovee) {
+function controladorSeleccionarTodosLosProductosSucursal($csu) {
     try {
-        Producto::actualizarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $sucursal_csucursal, $Proveedor_cprovee);
+        return Producto::seleccionarTodosLosProductosSucursal($csu);
+    } catch (Exception $e) {
+        echo "Error al seleccionar todos los productos: " . $e->getMessage();
+    }
+}
+function controladorActualizarProducto($cp, $nombre, $precioCompra, $precioVenta,$categoria, $Proveedor_cprovee) {
+    try {
+        Producto::actualizarProducto($cp, $nombre, $precioCompra, $precioVenta,$categoria, $Proveedor_cprovee);
         echo "Producto actualizado correctamente.";
     } catch (Exception $e) {
         echo "Error al actualizar producto: " . $e-> getMessage();

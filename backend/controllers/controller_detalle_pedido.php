@@ -1,9 +1,9 @@
 <?php
 include_once('DetallePedido.php');
 
-function controladorInsertarDetallePedido($cpp, $cantidad, $Producto_cp, $Pedido_cpe) {
+function controladorInsertarDetallePedido($cpp, $cantidad, $Producto_cp, $Proveedor_cproveedor) {
     try {
-        DetallePedido::insertarDetallePedido($cpp, $cantidad, $Producto_cp, $Pedido_cpe);
+        DetallePedido::insertarDetallePedido($cpp, $cantidad, $Producto_cp, $Proveedor_cproveedor);
         echo "Detalle del pedido insertado correctamente.";
     } catch (Exception $e) {
         echo "Error al insertar en el detalle del pedido: " . $e->getMessage();
@@ -18,9 +18,9 @@ function controladorSeleccionarDetallePedido() {
     }
 }
 
-function controladorActualizarDetallePedido($cpp, $cantidad, $Producto_cp, $Pedido_cpe) {
+function controladorActualizarDetallePedido($cpp, $cantidad, $Producto_cp, $Proveedor_cproveedor) {
     try {
-        DetallePedido::actualizarDetallePedido($cpp, $cantidad, $Producto_cp, $Pedido_cpe);
+        DetallePedido::actualizarDetallePedido($cpp, $cantidad, $Producto_cp, $Proveedor_cproveedor);
         echo "Detalle del pedido actualizado correctamente.";
     } catch (Exception $e) {
         echo "Error al actualizar el detalle del pedido: " . $e->getMessage();
@@ -32,7 +32,7 @@ function controladorEliminarDetallePedido($cpp) {
         DetallePedido::eliminarDetallePedido($cpp);
         echo "Detalle del pedido eliminado correctamente.";
     } catch (Exception $e) {
-        echo "Error al eliminar del detalle del pedido: " . $e->getMessage();
+        echo "Error al eliminar el detalle del pedido: " . $e->getMessage();
     }
 }
 ?>

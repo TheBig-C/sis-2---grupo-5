@@ -34,7 +34,7 @@ class Proveedor {
 
 public static function seleccionarTodosLosProveedores() {
     $conn = conexion();
-    $query = "SELECT * FROM Proveedores";
+    $query = "SELECT * FROM Proveedor";
     $result = pg_query($conn, $query);
     $proveedores = [];
 
