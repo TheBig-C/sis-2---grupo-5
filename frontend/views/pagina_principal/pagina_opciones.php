@@ -86,14 +86,14 @@
     <div class="container mt-5">
         <div class="row text-center options-container">
             <!-- Botones de las opciones en la primera fila -->
-            <a href="../view_ventas.php" class="btn btn-option">REGISTRAR VENTA</a>
-            <a href="../registrar_pedido.php" class="btn btn-option">REGISTRAR PEDIDO</a>
+            <a href="../ventas/view_realizar_venta.php" class="btn btn-option">REGISTRAR VENTA</a>
+            <a href="../pedido/agregar_pedido.php" class="btn btn-option">REGISTRAR PEDIDO</a>
             <a href="../productos/view_register_product.php" class="btn btn-option">AGREGAR PRODUCTOS NUEVO</a>
         </div>
         <div class="row text-center options-container">
             <!-- Botones de las opciones en la segunda fila -->
             <a href="../funcionario/view_fun.php" class="btn btn-option btn-option-large">AGREGAR EMPLEADO</a>
-            <a href="../view_pedido.php" class="btn btn-option btn-option-large">PEDIDOS</a>
+            <a href="../pedido/view_pedido.php" class="btn btn-option btn-option-large">PEDIDOS</a>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
