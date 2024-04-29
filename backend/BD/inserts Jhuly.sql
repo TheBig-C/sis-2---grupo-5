@@ -12,9 +12,9 @@ VALUES
 
 INSERT INTO Inventario ( cantidad, estado, sucursal_csucursal, Producto_cp) 
 values 
-(10,'true',1,1001),
-(10,'true',1,1002),
-(10,'true',1,1003),
+(10001,'true',1,1001),
+(10002,'true',1,1002),
+(10003,'true',1,1003),
 
 INSERT INTO sucursal (csucursal, zona)VALUES 
 (1, 'Obrajes'),
