@@ -5,19 +5,17 @@ class Venta {
     private $fecha;
     private $hora;
     private $estado;
-    private $metodo;
     private $total;
     private $totalEntregado;
     private $tipodepago;
     private $ci_cliente;
     private $Funcionario_cf;
 
-    public function __construct($cv, $fecha, $hora, $estado, $metodo, $total, $totalEntregado, $tipodepago, $ci_cliente, $Funcionario_cf) {
+    public function __construct($cv, $fecha, $hora, $estado, $total, $totalEntregado, $tipodepago, $ci_cliente, $Funcionario_cf) {
         $this->cv = $cv;
         $this->fecha = $fecha;
         $this->hora = $hora;
         $this->estado = $estado;
-        $this->metodo = $metodo;
         $this->total = $total;
         $this->totalEntregado = $totalEntregado;
         $this->tipodepago = $tipodepago;
@@ -58,13 +56,7 @@ class Venta {
         $this->estado = $estado;
     }
 
-    public function getMetodo() {
-        return $this->metodo;
-    }
 
-    public function setMetodo($metodo) {
-        $this->metodo = $metodo;
-    }
 
     public function getTotal() {
         return $this->total;
@@ -106,21 +98,20 @@ class Venta {
         $this->Funcionario_cf = $Funcionario_cf;
     }
     // Métodos CRUD
-    public static function insertarVenta($cv, $fecha, $hora, $estado, $metodo, $total, $totalEntregado, $tipodepago, $ci_cliente, $Funcionario_cf) {
+    public static function insertarVenta($cv, $fecha, $hora, $estado, $total, $totalEntregado, $tipodepago, $ci_cliente, $Funcionario_cf) {
         $conn = conexion();
         // Preparar y escapar los datos para prevenir inyecciones SQL
         $cv = pg_escape_string($conn, $cv);
         $fecha = pg_escape_string($conn, $fecha);
         $hora = pg_escape_string($conn, $hora);
         $estado = pg_escape_string($conn, $estado);
-        $metodo = pg_escape_string($conn, $metodo);
         $total = pg_escape_string($conn, $total);
         $totalEntregado = pg_escape_string($conn, $totalEntregado);
         $tipodepago = pg_escape_string($conn, $tipodepago);
         $ci_cliente = pg_escape_string($conn, $ci_cliente);
         $Funcionario_cf = pg_escape_string($conn, $Funcionario_cf);
 
-        $query = "INSERT INTO Venta (cv, fecha, hora, estado, metodo, total, totalEntregado, tipodepago, ci_cliente, funcionario_cf) VALUES ('$cv', '$fecha', '$hora', '$estado', '$metodo', $total, $totalEntregado, '$tipodepago', '$Funcionario_cf', '$ci_cliente')";
+        $query = "INSERT INTO Venta (cv, fecha, hora, estado, total, totalEntregado, tipodepago, ci_cliente, funcionario_cf) VALUES ('$cv', '$fecha', '$hora', '$estado', $total, $totalEntregado, '$tipodepago', '$ci_cliente', '$Funcionario_cf')";
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Error al insertar la venta.\n";
@@ -135,7 +126,7 @@ class Venta {
         $ventas = [];
 
         while ($ventaData = pg_fetch_assoc($result)) {
-            $ventas[] = new Venta($ventaData['cv'], $ventaData['fecha'], $ventaData['hora'], $ventaData['estado'], $ventaData['metodo'], $ventaData['total'], $ventaData['totalentregado'], $ventaData['tipodepago'], $ventaData['ci_cliente'], $ventaData['funcionario_cf']);
+            $ventas[] = new Venta($ventaData['cv'], $ventaData['fecha'], $ventaData['hora'], $ventaData['estado'], $ventaData['total'], $ventaData['totalentregado'], $ventaData['tipodepago'], $ventaData['ci_cliente'], $ventaData['funcionario_cf']);
         }
 
         return $ventas;
@@ -160,7 +151,6 @@ class Venta {
                 $ventaData['fecha'],
                 $ventaData['hora'],
                 $ventaData['estado'],
-                $ventaData['metodo'],
                 $ventaData['total'],
                 $ventaData['totalentregado'],
                 $ventaData['tipodepago'],
@@ -172,21 +162,20 @@ class Venta {
         return $ventas;
     }
 
-    public static function actualizarVenta($cv, $fecha, $hora, $estado, $metodo, $total, $totalEntregado, $tipodepago, $ci_cliente, $Funcionario_cf) {
+    public static function actualizarVenta($cv, $fecha, $hora, $estado, $total, $totalEntregado, $tipodepago, $ci_cliente, $Funcionario_cf) {
         $conn = conexion();
         // Preparar y escapar los datos
         $cv = pg_escape_string($conn, $cv);
         $fecha = pg_escape_string($conn, $fecha);
         $hora = pg_escape_string($conn, $hora);
         $estado = pg_escape_string($conn, $estado);
-        $metodo = pg_escape_string($conn, $metodo);
         $total = pg_escape_string($conn, $total);
         $totalEntregado = pg_escape_string($conn, $totalEntregado);
         $tipodepago = pg_escape_string($conn, $tipodepago);
         $ci_cliente = pg_escape_string($conn, $ci_cliente);
         $Funcionario_cf = pg_escape_string($conn, $Funcionario_cf);
 
-        $query = "UPDATE Venta SET fecha = '$fecha', hora = '$hora', estado = '$estado', metodo = '$metodo', total = $total, totalEntregado = $totalEntregado, tipodepago = '$tipodepago', ci_cliente = '$ci_cliente', Funcionario_cf = '$Funcionario_cf' WHERE cv = '$cv'";
+        $query = "UPDATE Venta SET fecha = '$fecha', hora = '$hora', estado = '$estado', total = $total, totalEntregado = $totalEntregado, tipodepago = '$tipodepago', ci_cliente = '$ci_cliente', Funcionario_cf = '$Funcionario_cf' WHERE cv = '$cv'";
         $result = pg_query($conn, $query);
         if (!$result) {
             echo "Error al actualizar la venta.\n";
@@ -227,9 +216,8 @@ class Venta {
             $ventaData['fecha'],
             $ventaData['hora'],
             $ventaData['estado'],
-            $ventaData['metodo'],
             $ventaData['total'],
-            $ventaData['totalEntregado'],
+            $ventaData['totalentregado'],
             $ventaData['tipodepago'],
             $ventaData['ci_cliente'],
             $ventaData['funcionario_cf']
@@ -237,7 +225,23 @@ class Venta {
     
         return $venta;
     }
+    public static function ultimoVenta(){
+        $conexion=conexion();
+        $ultimoCustomer = 0;
     
+        $query = "SELECT cv FROM venta ORDER BY cv DESC LIMIT 1";
+        $result = pg_query($conexion, $query);
+    
+        if ($row = pg_fetch_assoc($result)) {
+            $ultimoCustomer = (int)$row['cv'];
+        }
+    $ultimoCustomer++;
+    //pg_close($conexion);
+    
+        return $ultimoCustomer;
+    
+    
+    }
 }
 
 ?>

@@ -7,4 +7,5 @@ include 'controller_producto_vendido.php';
 include 'controller_venta.php';
 include 'controller_pedido.php';
 include 'controller_inventario.php';
+include 'controller_client.php';
 ?>

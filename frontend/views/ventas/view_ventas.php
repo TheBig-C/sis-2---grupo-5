@@ -29,16 +29,16 @@ if(isset($_POST['eliminar_venta'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ketal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="/sis2-Ketal/frontend/css/styleJhuly.css">
-    <link rel="stylesheet" href="/sis2-Ketal/frontend/css/style.css">
+    <link rel="stylesheet" href="/sis2-ketal/frontend/css/styleJhuly.css">
+    <link rel="stylesheet" href="/sis2-ketal/frontend/css/style.css">
 </head>
 <body>
     <header class="header">
         <nav class="navbar">
             <img src="/sis2-Ketal//frontend/assets/ketal.png">
-            <a href="view_producto.php"><b>Productos</b></a>
+            <a href="../productos/view_register_product.php"><b>Productos</b></a>
             <span> | </span>
-            <a href="view_ventas.php"><b>Ventas</b></a>
+            <a href="*"><b>Ventas</b></a>
         </nav>
         <a href="login.html"><b>Iniciar Sesion</b></a>
     </header>
@@ -90,7 +90,6 @@ if(isset($_POST['eliminar_venta'])) {
                                     <td><?php echo $venta->getFecha(); ?></td>
                                     <td><?php echo $venta->getHora(); ?></td>
                                     <td><?php echo $venta->getEstado(); ?></td>
-                                    <td><?php echo $venta->getMetodo(); ?></td>
                                     <td><?php echo $venta->getTotal(); ?></td>
                                     <td><?php echo $venta->getTotalEntregado(); ?></td>
                                     <td><?php echo $venta->getTipodepago(); ?></td>
@@ -129,7 +128,7 @@ if(isset($_POST['eliminar_venta'])) {
                                         // Obtener los productos de la venta actual
                                         $productosVendidos = controladorSeleccionarProductosVendidosPorVenta($venta->getCv());
                                         foreach ($productosVendidos as $productoVendido): 
-                                           
+                                            // Aquí podrías incluir la lógica necesaria para obtener más detalles del producto
                                             $producto = controladorSeleccionarProducto($productoVendido->getProductoCp());
                                             echo $producto->getNombre(). '<br>';
                                         ?>

@@ -17,7 +17,13 @@ function controladorSeleccionarTodosLosProductos() {
         echo "Error al seleccionar todos los productos: " . $e->getMessage();
     }
 }
-
+function controladorSeleccionarTodosLosProductosSucursal($csu) {
+    try {
+        return Producto::seleccionarTodosLosProductosSucursal($csu);
+    } catch (Exception $e) {
+        echo "Error al seleccionar todos los productos: " . $e->getMessage();
+    }
+}
 function controladorActualizarProducto($cp, $nombre, $precioCompra, $precioVenta,$categoria, $Proveedor_cprovee) {
     try {
         Producto::actualizarProducto($cp, $nombre, $precioCompra, $precioVenta,$categoria, $Proveedor_cprovee);

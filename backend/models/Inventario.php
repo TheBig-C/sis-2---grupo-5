@@ -29,16 +29,15 @@ class Inventario {
     public function getProductoCp() { return $this->Producto_cp; }
 
     // CRUD Methods
-    public static function insertarInventario($cinv, $cantidad, $estado, $sucursal_csucursal, $Producto_cp) {
+    public static function insertarInventario( $cantidad, $estado, $sucursal_csucursal, $Producto_cp) {
         $conn = conexion(); 
 
-        $cinv = pg_escape_string($conn, $cinv);
         $cantidad = pg_escape_string($conn, $cantidad);
         $estado = pg_escape_string($conn, $estado);
         $sucursal_csucursal = pg_escape_string($conn, $sucursal_csucursal);
         $Producto_cp = pg_escape_string($conn, $Producto_cp);
 
-        $query = "INSERT INTO Inventario (cinv, cantidad, estado, sucursal_csucursal, Producto_cp) VALUES ('$cinv', '$cantidad', '$estado', '$sucursal_csucursal', '$Producto_cp')";
+        $query = "INSERT INTO Inventario ( cantidad, estado, sucursal_csucursal, Producto_cp) VALUES ( '$cantidad', '$estado', '$sucursal_csucursal', '$Producto_cp')";
 
         $result = pg_query($conn, $query);
         if (!$result) {
@@ -46,7 +45,68 @@ class Inventario {
             exit;
         }
     }
-
+    public static function seleccionarInventarioIndividual($civ) {
+        $conn = conexion();
+        // Modifica la consulta SQL para seleccionar solo el producto específico
+        $query = "SELECT * FROM Inventario WHERE cinv = $1";
+    
+        // Preparar y ejecutar la consulta SQL segura con pg_prepare y pg_execute
+        pg_prepare($conn, "seleccionarInventarioIndividual", $query);
+        $result = pg_execute($conn, "seleccionarInventarioIndividual", array($codigoProducto));
+    
+        if (!$result) {
+            echo "Ocurrió un error al seleccionar el inventario para el producto: $codigoProducto.\n";
+            exit;
+        }
+    
+        $inventarios = [];
+        while ($inventarioData = pg_fetch_assoc($result)) {
+            $inventarios[] = new Inventario(
+                $inventarioData['cinv'],
+                $inventarioData['cantidad'],
+                $inventarioData['estado'],
+                $inventarioData['sucursal_csucursal'],
+                $inventarioData['producto_cp']
+            );
+        }
+    
+        return $inventarios;
+    }
+    
+    public static function seleccionarInventarioPorProductoYSucursal($codigoProducto, $codigoSucursal) {
+        $conn = conexion();
+        // Crear la consulta SQL para seleccionar un único producto en una sucursal específica
+        $query = "SELECT * FROM Inventario WHERE producto_cp = '" . pg_escape_string($conn, $codigoProducto) . "' AND sucursal_csucursal = '" . pg_escape_string($conn, $codigoSucursal) . "' and estado ='true'";
+    
+        // Ejecutar la consulta SQL directamente
+        $result = pg_query($conn, $query);
+        if (!$result) {
+            echo "Ocurrió un error al ejecutar la consulta.\n";
+            exit;
+        }
+    
+        // Verificar si se obtuvo algún resultado
+        if (pg_num_rows($result) > 0) {
+            $inventarioData = pg_fetch_assoc($result);
+            if ($inventarioData) {
+                $inventario = new Inventario(
+                    $inventarioData['cinv'],
+                    $inventarioData['cantidad'],
+                    $inventarioData['estado'],
+                    $inventarioData['sucursal_csucursal'],
+                    $inventarioData['producto_cp']
+                );
+                return $inventario;
+            }
+        } else {
+            exit;
+        }
+    
+        return null;
+    }
+    
+    
+    
     public static function seleccionarInventario() {
         $conn = conexion();
         $query = "SELECT * FROM Inventario";
