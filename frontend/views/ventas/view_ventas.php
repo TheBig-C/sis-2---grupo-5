@@ -36,11 +36,9 @@ if(isset($_POST['eliminar_venta'])) {
     <header class="header">
         <nav class="navbar">
             <img src="/sis2-Ketal//frontend/assets/ketal.png">
-            <a href="../productos/view_register_product.php"><b>Productos</b></a>
-            <span> | </span>
-            <a href="*"><b>Ventas</b></a>
+            <span>Ventas</span>
         </nav>
-        <a href="login.html"><b>Iniciar Sesion</b></a>
+        <a href="../pagina_principal/pagina_opciones.php"><b>Menú</b></a>
     </header>
     <main>
     <div class="container">

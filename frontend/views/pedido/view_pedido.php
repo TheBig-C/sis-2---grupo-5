@@ -32,11 +32,13 @@ $proveedores = Proveedor::seleccionarTodosLosProveedores();
 </style>
 </head>
 <body>
-    <div class="title-bar">
-        <img src="../../../frontend/assets/ketal.png" alt="Ketal Logo">
-        <h1>Realizar Pedido</h1>
-        <button class="menu-button" onclick="window.location.href='../../../frontend/views/pagina_principal/pagina_opciones.php'">Menú</button>
-    </div>
+    <header class="header">
+        <nav class="navbar">
+            <img src="/sis2-Ketal//frontend/assets/ketal.png">
+            <span>Realizar Pedido</span>
+        </nav>
+        <a href="../pagina_principal/pagina_opciones.php"><b>Menú</b></a>
+    </header>
     <div class="container-fluid">
         <div class="row">
             <!-- Columna de productos -->
