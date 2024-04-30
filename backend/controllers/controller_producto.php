@@ -17,11 +17,11 @@ function controladorSeleccionarTodosLosProductos() {
         echo "Error al seleccionar todos los productos: " . $e->getMessage();
     }
 }
-function controladorSeleccionarTodosLosProductosSucursal($csu) {
+function controladorSeleccionarProductosPorNombreYSucursal($busqueda, $csu, $categoria) {
     try {
-        return Producto::seleccionarTodosLosProductosSucursal($csu);
+        return Producto::seleccionarProductosPorNombreCategoriaYSucursal($busqueda, $categoria, $csu);
     } catch (Exception $e) {
-        echo "Error al seleccionar todos los productos: " . $e->getMessage();
+        echo "Error al seleccionar productos: " . $e->getMessage();
     }
 }
 function controladorActualizarProducto($cp, $nombre, $precioCompra, $precioVenta,$categoria, $Proveedor_cprovee) {
