@@ -12,12 +12,16 @@ if($result){
     $aux=controladorSeleccionarFuncionario($ci);
     if($aux->getTipo()=='administrador'){
         header('Location: ../sucursal/view_sucursal.php');
-    }else{
+    }else if ($aux->getTipo() == 'cajero') {
         $sucu = controladorSeleccionarSucursal($aux->getSucursalCsucursal());
     $serializedSucursal = serialize($sucu);
     setcookie('sucursal', $serializedSucursal, time() + 3600, '/'); // Caduca en 1 hora
-        header('Location: ../pagina_principal/pagina_opciones.php');
-
+        header('Location: ../pagina_principal/pagina_cajero.php');
+    }else {
+        $sucu = controladorSeleccionarSucursal($aux->getSucursalCsucursal());
+    $serializedSucursal = serialize($sucu);
+    setcookie('sucursal', $serializedSucursal, time() + 3600, '/'); // Caduca en 1 hora
+        header('Location: ../pagina_principal/pagina_operativo.php');
     }
 
 }else{
