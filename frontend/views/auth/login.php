@@ -9,7 +9,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result =authController($ci, $password);
     echo"resultado: $result";
 if($result){
-    header('Location: ../sucursal/view_sucursal.php');
+    $aux=controladorSeleccionarFuncionario($ci);
+    if($aux->getTipo()=='administrador'){
+        header('Location: ../sucursal/view_sucursal.php');
+    }else{
+        $sucu = controladorSeleccionarSucursal($aux->getSucursalCsucursal());
+    $serializedSucursal = serialize($sucu);
+    setcookie('sucursal', $serializedSucursal, time() + 3600, '/'); // Caduca en 1 hora
+        header('Location: ../pagina_principal/pagina_opciones.php');
+
+    }
 
 }else{
     echo "contraseña incorrecta";

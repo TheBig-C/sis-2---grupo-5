@@ -94,16 +94,34 @@ class Producto {
 
         return $productos;
     }
-    public static function seleccionarTodosLosProductosSucursal($csu) {
+    public static function seleccionarProductosPorNombreCategoriaYSucursal($busqueda, $categoria, $csu) {
         $conn = conexion();
-        $query = "SELECT a.cp,a.nombre,a.preciocompra,a.precioventa,a.categoria,a.proveedor_cproveedor FROM producto a, sucursal b, inventario c where a.cp=c.producto_cp and b.csucursal=c.sucursal_csucursal and b.csucursal=$csu and c.estado='true'";
-        $result = pg_query($conn, $query);
-        $productos = [];
-
-        while ($productoData = pg_fetch_assoc($result)) {
-            $productos[] = new Producto($productoData['cp'], $productoData['nombre'], $productoData['preciocompra'], $productoData['precioventa'],$productoData['categoria'],$productoData['proveedor_cproveedor']);
+        $query = "SELECT a.cp, a.nombre, a.preciocompra, a.precioventa, a.categoria, a.proveedor_cproveedor
+                  FROM producto a, sucursal b, inventario c
+                  WHERE a.cp=c.producto_cp AND b.csucursal=c.sucursal_csucursal AND b.csucursal=$1
+                    AND c.estado='true' AND a.nombre ILIKE $2";
+    
+        $params = array($csu, '%' . $busqueda . '%');
+        if (!empty($categoria)) {
+            $query .= " AND a.categoria=$3";
+            $params[] = $categoria;
         }
-
+    
+        $result = pg_prepare($conn, "buscarProductos", $query);
+        $result = pg_execute($conn, "buscarProductos", $params);
+    
+        $productos = [];
+        while ($productoData = pg_fetch_assoc($result)) {
+            $productos[] = new Producto(
+                $productoData['cp'],
+                $productoData['nombre'],
+                $productoData['preciocompra'],
+                $productoData['precioventa'],
+                $productoData['categoria'],
+                $productoData['proveedor_cproveedor']
+            );
+        }
+    
         return $productos;
     }
     public static function actualizarProducto($cp, $nombre, $precioCompra, $precioVenta, $categoria, $Proveedor_cproveedor) {

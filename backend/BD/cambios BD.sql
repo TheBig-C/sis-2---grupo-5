@@ -1,7 +1,3 @@
---DESPUES DE CORRER LA BASE DE DATOS SI O SI PONEN ESTO
-
-ALTER TABLE pedido_producto ALTER COLUMN cpp ADD GENERATED ALWAYS AS IDENTITY;
-ALTER TABLE pedido ALTER COLUMN cpe ADD GENERATED ALWAYS AS IDENTITY;
 
 -- tables
 -- Table: Cliente
@@ -53,7 +49,6 @@ CREATE TABLE Pedido_producto (
     Proveedor_cproveedor varchar(30)  NOT NULL,
     CONSTRAINT Pedido_producto_pk PRIMARY KEY (cpp)
 );
-select * from pedido_producto
 -- Table: Producto
 CREATE TABLE Producto (
     cp int  NOT NULL,
@@ -86,8 +81,7 @@ CREATE TABLE Venta (
     cv int  NOT NULL,
     fecha date  NOT NULL,
     hora time  NOT NULL,
-    etado boolean  NOT NULL,
-    metodo varchar(30)  NOT NULL,
+    estado boolean  NOT NULL,
     total float(2)  NOT NULL,
     totalEntregado float(2)  NOT NULL,
     tipodepago varchar(50)  NOT NULL,
@@ -210,5 +204,94 @@ ALTER TABLE Pedido_producto ADD CONSTRAINT entity_1_Producto
 
 -- End of file.
 
+
+
+--DESPUES DE CORRER LA BASE DE DATOS SI O SI PONEN ESTO
+
+ALTER TABLE pedido_producto ALTER COLUMN cpp ADD GENERATED ALWAYS AS IDENTITY;
+ALTER TABLE pedido ALTER COLUMN cpe ADD GENERATED ALWAYS AS IDENTITY;
+ALTER TABLE inventario ALTER COLUMN cinv ADD GENERATED ALWAYS AS IDENTITY;
+
+
+
+
+--triggers:
+--trigger inventario
+create function cantidadInventario()
+returns trigger as 
+$BODY$
+Declare var1 integer :=0;
+Declare var2 integer :=0;
+begin 
+	var1 := (Select a.cantidad from inventario a, producto b where a.producto_cp=b.cp and b.cp=new.producto_cp);
+	var2 := (select a.sucursal_csucursal from funcionario a, venta b, productovendido c where a.cf=b.funcionario_cf and b.cv=c.venta_cv and c.cpv=new.cpv );
+	UPDATE Inventario SET cantidad = var1-new.cantidad WHERE producto_cp =new.producto_cp and sucursal_csucursal=var2; 
+	
+	return new;
+end;
+$BODY$
+language plpgsql;
+create trigger cantidadInventario
+after insert on productovendido
+for each row
+execute procedure cantidadInventario();
+
+INSERT INTO ProductoVendido (cpv, cantidad,Venta_cv, Producto_cp)
+VALUES
+    (11,10 ,1, 525);
+select * from pedido
+
+--trigger pedidos
+
+create function cantidadPedidoInventario6()
+returns trigger as 
+$BODY$
+Declare var1 integer :=0;
+Declare var2 integer :=0;
+
+Declare var3 integer :=0;
+begin 
+	if (new.estado='Entregado') THEN
+		var3 := (Select a.cantidad from pedido_producto a where a.cpp=new.pedido_producto_cpp);
+		var2 := (Select a.producto_cp from pedido_producto a  where a.cpp=new.pedido_producto_cpp);
+		var1 := (Select a.cantidad from inventario a, producto b where a.producto_cp=b.cp and b.cp=var2);
+		UPDATE Inventario SET cantidad = var1+var3 WHERE producto_cp =var2 and sucursal_csucursal=new.sucursal_csucursal; 
+	end if;
+	
+	return new;
+end;
+$BODY$
+language plpgsql;
+create trigger cantidadPedidoInventario6
+after insert on pedido
+for each row
+execute procedure cantidadPedidoInventario6();
+
+
+
+--update:
+create function cantidadPedidoInventario10()
+returns trigger as 
+$BODY$
+Declare var1 integer :=0;
+Declare var2 integer :=0;
+
+Declare var3 integer :=0;
+begin 
+	if (new.estado='Entregado') THEN
+		var3 := (Select a.cantidad from pedido_producto a where a.cpp=new.pedido_producto_cpp);
+		var2 := (Select a.producto_cp from pedido_producto a  where a.cpp=new.pedido_producto_cpp);
+		var1 := (Select a.cantidad from inventario a, producto b where a.producto_cp=b.cp and b.cp=var2);
+		UPDATE Inventario SET cantidad = var1+var3 WHERE producto_cp =var2 and sucursal_csucursal=new.sucursal_csucursal; 
+	end if;
+	
+	return new;
+end;
+$BODY$
+language plpgsql;
+create trigger cantidadPedidoInventario10
+after update on pedido
+for each row
+execute procedure cantidadPedidoInventario10();
 
 

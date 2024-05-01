@@ -229,13 +229,420 @@ padding: 1rem;
 
 
 /*** estilos narvar***/
-.narvar{
+html{
+  background-color: #2B2D42;
+}
+
+.section_our_solution .row {
+  align-items: center;
+}
+
+.our_solution_category {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.our_solution_category .solution_cards_box {
+  display: grid;
+  grid-template-rows: auto 1fr; /* First row for the image, second row for the content */
+
+  grid-template-columns: repeat(2, 1fr); /* Creates two columns with equal width */
+  grid-gap: 1rem; /* Space between grid items */
+  justify-items: center; /* Center grid items horizontally */
+  align-items: start; /* Align grid items to the start of the grid area vertically */
+}
+.solution_cards_box .solution_card {
+  flex: 0 50%;
+  width: 100%; /* Now the card will fill the column width */
+display: flex;
+flex-direction: column; /* Stack the image and content vertically */
+align-items: center; /* Center items horizontally */
+justify-content: space-between; /* Distribute spacing evenly */
+padding: 1rem; /* Adjust padding */
+min-height: 320px; /* Increase minimum height to handle larger image */
+  background: #fff;
+  box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.2),
+    0 5px 15px 0 rgba(37, 44, 97, 0.15);
+  border-radius: 15px;
+  margin: 1rem;
+  padding: 10px 15px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  min-height: 265px;
+  transition: 0.7s;
+}
+.solution_cards_box1 .solution_card {
+  flex: 0 50%;
+  background: #fff;
+  box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.2),
+    0 5px 15px 0 rgba(37, 44, 97, 0.15);
+  border-radius: 15px;
+  margin: 1rem;
+  padding: 10px 15px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  
+  height: 35rem;
+  transition: 0.7s;
+ 
+
+}
+
+
+.solution_cards_box .solution_card:hover {
+  background: #e52626;
+  color: #fff;
+  transform: scale(1.1);
+  z-index: 9;
+}
+
+.solution_cards_box .solution_card:hover::before {
+  background: rgb(85 108 214 / 10%);
+}
+
+.solution_cards_box .solution_card:hover .solu_title h3,
+.solution_cards_box .solution_card:hover .solu_description p {
+  color: #fff;
+}
+
+.solution_cards_box .solution_card:before {
+  content: "";
+  position: absolute;
+  background: rgb(85 108 214 / 5%);
+  width: 170px;
+  height: 400px;
+  z-index: -1;
+  transform: rotate(42deg);
+  right: -56px;
+  top: -23px;
+  border-radius: 35px;
+}
+
+.solution_cards_box .solution_card:hover .solu_description button {
+  background: #fff !important;
+  color: #e52626;
+
+}
+
+.solution_card .so_top_icon {
+  border-radius: 5%;
+  
+}
+
+.solution_card .solu_title h3 {
+  color: #212121;
+  font-size: 1.3rem;
+  margin-top: 13px;
+  margin-bottom: 13px;
+}
+
+.solution_card .solu_description p {
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.solution_card .solu_description button {
+  border: 0;
+  border-radius: 15px;
+  background: linear-gradient(
+    140deg,
+    #e52626 0%,
+    #e52626 50%,
+    #e52626c7 75%
+  ) !important;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 5px 16px;
+}
+
+.our_solution_content h1 {
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+}
+.our_solution_content p {
+}
+
+.hover_color_bubble {
+  position: absolute;
+  background: rgb(54 81 207 / 15%);
+  width: 100rem;
+  height: 100rem;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  top: 16rem;
+  border-radius: 50%;
+  transform: rotate(-36deg);
+  left: -18rem;
+  transition: 0.7s;
+}
+
+.solution_cards_box .solution_card:hover .hover_color_bubble {
+  top: 0rem;
+}
+
+.solution_cards_box .solution_card .so_top_icon {
+  width: 5rem;
+  height: auto;
+ 
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.solution_cards_box .solution_card .so_top_icon img {
+  width: 5rem;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 0.2rem #000000);
+}
+
+.solution_cards_box1 .solution_card .so_top_icon {
+  width: 5rem;
+  height: auto;
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.solution_cards_box1 .solution_card .so_top_icon img {
+  width: 6rem;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 0.2rem #000000);
+}
+
+/** contendedor trajetas*/
+.base {
+  display: flex;
+  padding-top: 2rem;
+  justify-content: center;
+  align-items: center;
+ 
+  background-color: #2B2D42;
+ 
+}
+.baseIzquierda{
+  width: 40%;
+  background-color: #b9cddc;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2),
+  inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+  5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
+padding: 1rem;
+  border-radius: 5%;
+}
+.baseDerecha{
+  width: 30%;
+ 
+  height: 40rem;
+  background-color: #e52626;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2),
+  inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+  5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
+padding: 1rem;
+  border-radius: 5%;
+}
+.contenedor{
+  
+  padding-top: 2rem;
+  border-radius: 5%;
+
+  overflow: hidden;
+}
+
+
+/*** estilos narvar***/
+.narvar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: #EDF2F4;
   box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2),
+              inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+              5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  transition: 0.5s;
+}
+
+.salirBtn {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #c70000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none; /* Elimina el subrayado por defecto de los enlaces */
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2),
+              inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+              5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.salirBtn:hover {
+  background-color: #f8f8f8;
+  color: #c70000;
+}
+
+
+.imagenNavar{
+  width: 8rem;
+  height: auto;
+  margin: 1rem;
+  filter: drop-shadow(0 0 0.75rem #ff6d6d);
+}
+
+/*** bsuacdor ***/
+.contenedorBoton {
+  margin: 1rem;
+
+}
+
+.contenedorBoton input[type="text"] {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2),
+  inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+  5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
+
+width: 50%;  
+}
+
+.contenedorBoton button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #c70000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2),
+  inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+  5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
+
+}
+
+.contenedorBoton button:hover {
+  background-color: #f8f8f8;
+  color: #c70000;
+}
+.baseIzquierda select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 8rem;
+  height: 2rem;
+  border: 1px solid #fafafa;
+  border-radius: 5px;
+  margin-left: 3rem;
+
+}
+
+/*start media query*/
+@media screen and (min-width: 320px) {
+  .sol_card_top_3 {
+    position: relative;
+    top: 0;
+  }
+
+  .our_solution_category {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .our_solution_category .solution_cards_box {
+    flex: auto;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .our_solution_category .solution_cards_box {
+    flex: 1;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .sol_card_top_3 {
+    position: relative;
+    top: -3rem;
+  }
+  .our_solution_category {
+  
+    margin: 0 auto;
+  }
+}
+.baseIzquierda .contenedor {
+  padding-top: 2.8rem;
+  overflow-y: auto; /* Esto agregará desplazamiento vertical */
+  max-height: 38rem; /* Establece una altura máxima para el contenedor */
+  z-index: 50;
+}
+
+.baseIzquierda .solution_card {
+  position: relative; /* Establece el contexto de apilamiento */
+  z-index: 100; /* Asegura que las tarjetas estén en el mismo nivel de apilamiento */
+}
+
+
+.baseIzquierda .solution_card:hover {
+  z-index: 1; /* Aumenta el nivel de apilamiento de la tarjeta en hover */
+}
+.baseIzquierda .solution_card:hover .hover_color_bubble{
+  z-index: -100; /* Aumenta el nivel de apilamiento de la tarjeta en hover */
+}
+
+.baseIzquierda .solution_card  {
+  max-width: 100%; /* Asegura que la imagen no se expanda más allá del ancho del contenedor */
+  max-height: 100%; /* Asegura que la imagen no se expanda más allá de la altura del contenedor */
+  object-fit: cover; /* Oculta cualquier parte de la imagen que se extienda más allá del contenedor */
+}
+
+.ContendorProducto .row .tituloProducto{
+   margin-left: 0rem;
+   border: 10px solid #000000;
+}
+
+
+
+
+
+.section_our_solution .row {
+  align-items: stretch;
+  margin-left: 1rem;
+  }
+ .solucion-car .Contendorproducto .row {
+      margin-left: 12rem;
+  }
+
+  .Contendorproducto{
+      margin-left: 1rem;
+  }
+  .Contendorproducto p{
+     margin-left: 10rem;
+  }
+
+  .Contendorproducto  .contendorDeProductos {
+    background-color: #E2E4F8;
+    border-radius: 5px;
+    margin-left: 0.2rem;
+    margin-right: 0.5rem;
+    padding: 0.8rem;
+  
+
+    cursor: pointer;
+    box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2),
     inset -5px -5px 15px rgba(255, 255, 255, 0.1),
     5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
- 
- transition: 0.5s;
+ margin-bottom: 1rem;
+    max-height:20rem; /* Ajusta la altura máxima según tu preferencia */
+    overflow-x: auto; /* Habilita el desplazamiento vertical */
 }
 
 .imagenNavar{

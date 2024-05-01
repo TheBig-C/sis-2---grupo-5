@@ -229,14 +229,37 @@ html{
   
 
   /*** estilos narvar***/
-  .narvar{
+  .narvar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: #EDF2F4;
     box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2),
-      inset -5px -5px 15px rgba(255, 255, 255, 0.1),
-      5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
-   
-   transition: 0.5s;
-  }
+                inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+                5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    transition: 0.5s;
+}
+
+.salirBtn {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #c70000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* Elimina el subrayado por defecto de los enlaces */
+    box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2),
+                inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+                5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.salirBtn:hover {
+    background-color: #f8f8f8;
+    color: #c70000;
+}
+
 
   .imagenNavar{
     width: 8rem;

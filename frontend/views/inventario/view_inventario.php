@@ -15,23 +15,35 @@
 
     <div class="narvar">
         <img class="imagenNavar" src="https://ilacad.com/BO/data/logos_cadenas/Bolivia_Ketal_Logo.png" alt="">
+        <button type="button" class="btn btn-primary" onclick="window.location.href='../pagina_principal/pagina_opciones.php';">Salir</button>
+
     </div>
     <div class="base">
         <div class="baseIzquierda">
             <div class="contenedorBoton">
-                <input type="text" placeholder="Buscar...">
-                <button type="button">Buscar</button>
-                <select>
+            <form method="get">
+                <input type="text" name="busqueda" placeholder="Buscar..." value="<?php echo isset($_GET['busqueda']) ? htmlspecialchars($_GET['busqueda']) : ''; ?>">
+                <select name="categoria">
+                    <option value="">Todas las Categorías</option>
                     <?php
                     include_once 'C:\xampp\htdocs\sis2-ketal\backend\controllers\controllers.php';
 
                 $categorias = controladorSeleccionarTodosLosProductos();
-                
+                $cat=[];
                 foreach ($categorias as $key => $value) {
-                    echo "<option value='$key'>{$value->getCategoria()}</option>";
+                    $categoria = $value->getCategoria();
+                    if (!in_array($categoria, $cat)) {
+                        $cat[] = $categoria;
+                    }
+                }
+                
+                foreach ($cat as $key => $value) {
+                    echo "<option value='$value'>{$value}</option>";
                 }
                 ?>
                 </select>
+                <button type="submit">Buscar</button>
+            </form>
             </div>
 
             <div class="contenedor">
@@ -41,68 +53,67 @@
                             <div class="our_solution_category">
                                 <div class="solution_cards_box">
                                 <?php
-                                include_once 'C:\xampp\htdocs\sis2-ketal\backend\controllers\controllers.php';
-                               $inv=0;
-                               $h=150;
-                               $w=150;
-                               $apiKey = 'AIzaSyD_VD0W_aE-tnFKTJwSfFIzGmD3BrIgYkU';
-                                    $cx = 'b6b21b544d2f945bf';
-                                   
-                                $serializedSucursal = $_COOKIE['sucursal'];
-                                $suc = unserialize($serializedSucursal);
-                                $aux= $suc->getCsucursal();
-                                $productos = controladorSeleccionarTodosLosProductosSucursal($aux);
+                        include_once 'C:\xampp\htdocs\sis2-ketal\backend\controllers\controllers.php';
+                        $inv = 0;
+                        $h = 150;
+                        $w = 150;
+                        $apiKey = 'AIzaSyD_VD0W_aE-tnFKTJwSfFIzGmD3BrIgYkU';
+                        $cx = 'b6b21b544d2f945bf';
 
-                                foreach ($productos as $producto) {
-                                    $inv=controladorSeleccionarInventarioPorProductoYSucursal($producto->getCp(),$aux);
-                                    $query = urlencode($producto->getNombre());
+                        $serializedSucursal = $_COOKIE['sucursal'];
+                        $suc = unserialize($serializedSucursal);
+                        $aux = $suc->getCsucursal();
 
-                                    $url = "https://www.googleapis.com/customsearch/v1?key=$apiKey&cx=$cx&q=$query&searchType=image&num=1";
+                        // Capturar la búsqueda
+                            $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
+                            // Capturar la categoría seleccionada
+                            $categoria = isset($_GET['categoria']) ? $_GET['categoria'] : '';
 
-                                    $ch = curl_init();
-                                    curl_setopt($ch, CURLOPT_URL, $url);
-                                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                                    $response = curl_exec($ch);
-                                    curl_close($ch);
 
-                                    $result = json_decode($response);
-                                    if (isset($result->items)) {
-                                        foreach ($result->items as $item) {
-                                            $l=$item->link;
-                                            $im=htmlspecialchars($query);
+                                                    // Filtrar productos según la búsqueda
+                            // Filtrar productos según la búsqueda y la categoría
+                            $productos = controladorSeleccionarProductosPorNombreYSucursal($busqueda, $aux, $categoria);
 
-                                        }
-                                    } else {
-                                        echo 'No se encontraron imágenes.';
-                                    }
+                        foreach ($productos as $producto) {
+                            $inv = controladorSeleccionarInventarioPorProductoYSucursal($producto->getCp(), $aux);
+                            $cant = $inv->getCantidad();
+                            $query = urlencode($producto->getNombre());
 
-                                    echo "<div class='solution_card'>
-                                        <div class='hover_color_bubble'></div>
-                                        <div class='so_top_icon large-icon'>
-                                            <img src='$l' alt='$im' >
-                                        </div>
+                            $url = "https://www.googleapis.com/customsearch/v1?key=$apiKey&cx=$cx&q=$query&searchType=image&num=1";
 
-                                        <div class='solu_title'>
-                                            <h3>{$producto->getNombre()}</h3>
-                                        </div>
-                                        <div class='solu_description'>
-                                            <p>Precio: {$producto->getPrecioVenta()} Bs.</p>
-                                            <button type='button' class='read_more_btn' 
-                                                onclick='updateDetails(this)'
-                                                data-cp='{$producto->getCp()}'
-                                                data-cinv='{$inv->getCinv()}'
-                                                data-nombre='{$producto->getNombre()}'
-                                                data-cantidad='{$inv->getCantidad()}'
-                                                data-precio-venta='{$producto->getPrecioVenta()}'
-                                                data-precio-compra='{$producto->getPrecioCompra()}'
-                                                data-inventario='{$inv->getEstado()}'
-                                                data-categoria='{$producto->getCategoria()}'>Ver más</button>
-                                        </div>
-                                    </div>";
+                            $ch = curl_init();
+                            curl_setopt($ch, CURLOPT_URL, $url);
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                            $response = curl_exec($ch);
+                            curl_close($ch);
+
+                            $result = json_decode($response);
+                            if (isset($result->items)) {
+                                foreach ($result->items as $item) {
+                                    $l = $item->link;
+                                    $im = htmlspecialchars($query);
                                 }
-                                
-                                ?>
+                            } else {
+                                echo 'No se encontraron imágenes.';
+                            }
 
+                            echo "<div class='solution_card'>
+                                    <div class='hover_color_bubble'></div>
+                                    <div class='so_top_icon large-icon'>
+                                        <img src='$l' alt='$im'>
+                                    </div>
+                                    <div class='solu_title'>
+                                        <h3>{$producto->getNombre()}</h3>
+                                    </div>
+                                    <div class='solu_description'>
+                                        <p>Precio: {$producto->getPrecioVenta()} Bs.</p>
+                                        <p>Cantidad: {$inv->getCantidad()}</p>
+                                        <button type='button' class='read_more_btn' onclick='updateDetails(this)' data-cp='{$producto->getCp()}' data-categoria='{$producto->getCp()}' data-inventario='{$inv->getEstado()}' data-nombre='{$producto->getNombre()}' data-precio-venta='{$producto->getPrecioVenta()}'  data-precio-compra='{$producto->getPrecioCompra()}'  data-cantidad='{$inv->getCantidad()}'>Vera mas..</button>
+                                        <input type='number' value='0' min='0' max='$cant' style='width: 60px;' onchange='updateCantidad(this, {$producto->getCp()})'>
+                                    </div>
+                                </div>";
+                        }
+                        ?>
                                 </div>
                             </div>
                         </div>

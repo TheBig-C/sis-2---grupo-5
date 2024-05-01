@@ -10,6 +10,11 @@ VALUES
 (1002, 'Camisa de Manga Larga', 20.50, 35.00, 'Ropa', 'PRV002'),
 (1003, 'Refrigerador Samsung', 1200.00, 1500.00, 'Electrodomésticos', 'PRV003');
 
+INSERT INTO Inventario ( cantidad, estado, sucursal_csucursal, Producto_cp) 
+values 
+(10001,'true',1,1001),
+(10002,'true',1,1002),
+(10003,'true',1,1003),
 
 INSERT INTO sucursal (csucursal, zona)VALUES 
 (1, 'Obrajes'),
@@ -17,26 +22,27 @@ INSERT INTO sucursal (csucursal, zona)VALUES
 
 INSERT INTO funcionario (cf, tipo, nombre, password, sucursal_csucursal)
 VALUES (20524548, 'administrador', 'admin', '12345678', 1);
-
+(232332, 'cajero', 'cajero1', '12345678', 1);
 
 INSERT INTO Cliente (ci, nombre, apellidos, sexo) VALUES
-(1234567, 'Juan', 'Pérez', 'Masculino'),
-(2345678, 'María', 'López', 'Femenino');
+(1234567, 'Juan', 'Pérez', 'male'),
+(2345678, 'María', 'López', 'female');
 
-INSERT INTO Venta (cv, fecha, hora, estado, metodo, total, totalentregado, tipodepago, ci_cliente, Funcionario_cf) VALUES
-(1, '2024-04-26', '10:30:00', true, 'Tarjeta', 100.50, 100.50, 'Débito',1234567, 20524548),
-(2, '2024-04-26', '11:45:00', true, 'Efectivo', 150.75, 150.75, 'Efectivo',2345678 ,20524548);
+INSERT INTO Venta (cv, fecha, hora, estado, total, totalentregado, tipodepago, Cliente_Ci, Funcionario_cf) VALUES
+(1, '2024-04-26', '10:30:00', 'true', 100.50, 100.50, 'Débito',1234567, 20524548),
+(2, '2024-04-26', '11:45:00', 'true', 150.75, 150.75, 'Efectivo',2345678 ,20524548);
 
 
 -- Insertar ejemplo de producto vendido para la venta #1
-INSERT INTO ProductoVendido (cpv, Venta_cv, Producto_cp)
+INSERT INTO ProductoVendido (cpv, cantidad,Venta_cv, Producto_cp)
 VALUES
-    (1, 1, 1001), -- cpv: ID del producto vendido, Venta_cv: ID de la venta #1, Producto_cp: ID del producto "Laptop HP Pavilion"
-    (2, 1, 1002); -- cpv: ID del producto vendido, Venta_cv: ID de la venta #1, Producto_cp: ID del producto "Camisa de Manga Larga"
+    (1,10 ,1, 1001), -- cpv: ID del producto vendido, Venta_cv: ID de la venta #1, Producto_cp: ID del producto "Laptop HP Pavilion"
+    (2,10, 1, 1002); -- cpv: ID del producto vendido, Venta_cv: ID de la venta #1, Producto_cp: ID del producto "Camisa de Manga Larga"
 
--- Insertar ejemplo de producto vendido para la venta #2
-INSERT INTO ProductoVendido (cpv, Venta_cv, Producto_cp)
+---- Insertar ejemplo de producto vendido para la venta #1
+INSERT INTO ProductoVendido (cpv, cantidad,Venta_cv, Producto_cp)
 VALUES
+<<<<<<< HEAD
 	(3, 2, 1002),
     (4, 2, 1003); -- cpv: ID del producto vendido, Venta_cv: ID de la venta #2, Producto_cp: ID del producto "Refrigerador Samsung"
 
@@ -77,3 +83,7 @@ VALUES
     (10, '2024-04-19', '10:55:00', false, 'Tarjeta de crédito', 250.50, 250.50, 'Tarjeta', 9012345, 789),
     (11, '2024-04-18', '15:25:00', true, 'Efectivo', 175.60, 175.00, 'Efectivo', 1234567,789),
     (12, '2024-04-17', '12:00:00', true, 'Tarjeta de débito', 150.00, 150.00, 'Tarjeta', 2345678, 210);
+=======
+    (1,10 ,2, 1001), -- cpv: ID del producto vendido, Venta_cv: ID de la venta #1, Producto_cp: ID del producto "Laptop HP Pavilion"
+    (2,10, 2, 1002); -- cpv: ID del producto vendido, Venta_cv: ID de la venta #1, Producto_cp: ID del producto "Camisa de Manga Larga"
+>>>>>>> 7c0bc596e3c74b96795f897b12a8a07bf06a5ae3

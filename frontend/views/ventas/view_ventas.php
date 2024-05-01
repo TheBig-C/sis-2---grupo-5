@@ -53,15 +53,16 @@ if(isset($_POST['eliminar_venta'])) {
                     </form>
                 </div>
                 <div class="col-md-6">
-                    <!-- Filtros -->
+                    <!-- Filtros 
                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" class="btn-check" name="btnradio" id="reciente" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="reciente">Más reciente</label>
+                    <input type="radio" class="btn-check" name="orden" id="reciente" value="reciente"
+                    autocomplete="off" 
+                    <label class="btn btn-outline-primary" for="reciente">Más reciente</label>
 
-                        <input type="radio" class="btn-check" name="btnradio" id="antiguo" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="antiguo">Más antiguo</label>
-                    </div>
-                </div>
+                    <input type="radio" class="btn-check" name="orden" id="antiguo" value="antiguo" 
+                    autocomplete="off" 
+                    <label class="btn btn-outline-primary" for="antiguo">Más antiguo</label>
+                </div>-->
             </div>
             <!-- Tabla de ventas -->
             <div class="table-responsive">
@@ -72,13 +73,14 @@ if(isset($_POST['eliminar_venta'])) {
                                 <th scope="col">CV</th>
                                 <th scope="col">Fecha</th>
                                 <th scope="col">Hora</th>
-                                <th scope="col">Estado</th>
-                                <th scope="col">Método</th>
+                                <!--<th scope="col">Estado</th>-->
+                                <!--<th scope="col">Método</th>-->
                                 <th scope="col">Total</th>
-                                <th scope="col">Total Entregado</th>
+                                <!--<th scope="col">Total Entregado</th>-->
                                 <th scope="col">Tipo de Pago</th>
                                 <th scope="col">CI Cliente</th>
                                 <th scope="col">Funcionario CF</th>
+                                <th scope="col">Detalles</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -87,9 +89,9 @@ if(isset($_POST['eliminar_venta'])) {
                                     <td><?php echo $venta->getCv(); ?></td>
                                     <td><?php echo $venta->getFecha(); ?></td>
                                     <td><?php echo $venta->getHora(); ?></td>
-                                    <td><?php echo $venta->getEstado(); ?></td>
+                                    <!--<td><?php echo $venta->getEstado(); ?></td>-->
                                     <td><?php echo $venta->getTotal(); ?></td>
-                                    <td><?php echo $venta->getTotalEntregado(); ?></td>
+                                    <!--<td><?php echo $venta->getTotalEntregado(); ?></td>-->
                                     <td><?php echo $venta->getTipodepago(); ?></td>
                                     <td><?php echo $venta->getCiCliente(); ?></td>
                                     <td><?php echo $venta->getFuncionarioCf(); ?></td>
@@ -157,3 +159,5 @@ if(isset($_POST['eliminar_venta'])) {
             }
         }
     </script>
+
+
