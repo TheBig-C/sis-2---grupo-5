@@ -108,7 +108,7 @@
                                     <div class='solu_description'>
                                         <p>Precio: {$producto->getPrecioVenta()} Bs.</p>
                                         <p>Cantidad: {$inv->getCantidad()}</p>
-                                        <button type='button' class='read_more_btn' onclick='agregarLista(this)' data-cp='{$producto->getCp()}' data-nombre='{$producto->getNombre()}' data-precio-venta='{$producto->getPrecioVenta()}' data-cantidad='1'>Agregar</button>
+                                        <button type='button' class='read_more_btn' onclick='updateDetails(this)' data-cp='{$producto->getCp()}' data-categoria='{$producto->getCp()}' data-inventario='{$inv->getEstado()}' data-nombre='{$producto->getNombre()}' data-precio-venta='{$producto->getPrecioVenta()}'  data-precio-compra='{$producto->getPrecioCompra()}'  data-cantidad='{$inv->getCantidad()}'>Vera mas..</button>
                                         <input type='number' value='0' min='0' max='$cant' style='width: 60px;' onchange='updateCantidad(this, {$producto->getCp()})'>
                                     </div>
                                 </div>";
