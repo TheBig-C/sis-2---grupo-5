@@ -37,7 +37,7 @@ $proveedores = Proveedor::seleccionarTodosLosProveedores();
             <img src="/sis2-Ketal//frontend/assets/ketal.png">
             <span>Realizar Pedido</span>
         </nav>
-        <a href="../pagina_principal/pagina_opciones.php"><b>Menú</b></a>
+        <a href="../pagina_principal/enrutamiento.php"><b>Menú</b></a>
     </header>
     <div class="container-fluid">
         <div class="row">

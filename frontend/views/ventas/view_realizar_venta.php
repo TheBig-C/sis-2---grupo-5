@@ -17,7 +17,7 @@
   
 <div class="narvar">
     <img class="imagenNavar" src="https://ilacad.com/BO/data/logos_cadenas/Bolivia_Ketal_Logo.png" alt="">
-    <button type="button" class="btn btn-primary" onclick="window.location.href='../pagina_principal/pagina_opciones.php';">Salir</button>
+    <button type="button" class="btn btn-primary" onclick="window.location.href='../pagina_principal/enrutamiento.php';">Salir</button>
  
 </div>
 <div class="base">
