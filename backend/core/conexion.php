@@ -5,7 +5,7 @@
         $host = "localhost";
         $dbname = "ketal";
         $user = "postgres";
-        $password = "1234";
+        $password = "pastelitos";
         // Creamos la conexión
         return $connection = pg_connect("host=$host dbname=$dbname user=$user password=$password");
     }

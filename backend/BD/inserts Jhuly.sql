@@ -14,14 +14,14 @@ INSERT INTO Inventario ( cantidad, estado, sucursal_csucursal, Producto_cp)
 values 
 (10001,'true',1,1001),
 (10002,'true',1,1002),
-(10003,'true',1,1003),
+(10003,'true',1,1003);
 
 INSERT INTO sucursal (csucursal, zona)VALUES 
 (1, 'Obrajes'),
 (2, 'Irpavi');
 
 INSERT INTO funcionario (cf, tipo, nombre, password, sucursal_csucursal)
-VALUES (20524548, 'administrador', 'admin', '12345678', 1);
+VALUES (20524548, 'administrador', 'admin', '12345678', 1),
 (232332, 'cajero', 'cajero1', '12345678', 1);
 
 INSERT INTO Cliente (ci, nombre, apellidos, sexo) VALUES
@@ -42,5 +42,5 @@ VALUES
 ---- Insertar ejemplo de producto vendido para la venta #1
 INSERT INTO ProductoVendido (cpv, cantidad,Venta_cv, Producto_cp)
 VALUES
-    (1,10 ,2, 1001), -- cpv: ID del producto vendido, Venta_cv: ID de la venta #1, Producto_cp: ID del producto "Laptop HP Pavilion"
-    (2,10, 2, 1002); -- cpv: ID del producto vendido, Venta_cv: ID de la venta #1, Producto_cp: ID del producto "Camisa de Manga Larga"
+    (3,10 ,2, 1001), -- cpv: ID del producto vendido, Venta_cv: ID de la venta #1, Producto_cp: ID del producto "Laptop HP Pavilion"
+    (4,10, 2, 1002); -- cpv: ID del producto vendido, Venta_cv: ID de la venta #1, Producto_cp: ID del producto "Camisa de Manga Larga"

@@ -4,14 +4,55 @@ include_once 'C:\xampp\htdocs\sis2-Ketal\backend\controllers\controllers.php';
 
 $ventas = [];
 
-if (isset($_GET['cliente'])) {
-    $ci_cliente = $_GET['cliente'];
-    if (!empty($ci_cliente)) { 
-        $ventas = controladorSeleccionarVentasPorCliente($ci_cliente);
-    } else { 
-        $ventas = controladorSeleccionarTodasLasVentas();
+// Verificar si se ha enviado el formulario de búsqueda
+if (isset($_GET['buscar'])) {
+    // Obtener el tipo de búsqueda seleccionado
+    $tipo_busqueda = $_GET['tipo_busqueda'];
+
+    // Realizar la búsqueda según el tipo seleccionado
+    switch ($tipo_busqueda) {
+        case 'cliente':
+            $ci_cliente = $_GET['cliente'];
+            if (!empty($ci_cliente)) { 
+                $ventas = controladorSeleccionarVentasPorCliente($ci_cliente);
+            } else { 
+                $ventas = controladorSeleccionarTodasLasVentas();
+            }
+            break;
+        
+        case 'funcionario':
+            $funcionario_cf = $_GET['funcionario'];
+            if (!empty($funcionario_cf)) { 
+                $ventas = controladorSeleccionarVentasPorFuncionario($funcionario_cf);
+            } else { 
+                $ventas = controladorSeleccionarTodasLasVentas();
+            }
+            break;
+
+        case 'fecha':
+            $fecha = $_GET['fecha'];
+            if (!empty($fecha)) { 
+                $ventas = controladorSeleccionarVentasPorFecha($fecha);
+            } else { 
+                $ventas = controladorSeleccionarTodasLasVentas();
+            }
+            break;
+        case 'producto':
+            $producto_nombre = $_GET['producto'];
+            if (!empty($producto_nombre)) { 
+                $ventas = controladorSeleccionarVentasPorProducto($producto_nombre);
+            } else { 
+                $ventas = controladorSeleccionarTodasLasVentas();
+            }
+            break;           
+            
+        default:
+            // Si no se selecciona ningún tipo, mostrar todas las ventas
+            $ventas = controladorSeleccionarTodasLasVentas();
+            break;
     }
 } else {
+    // Si no se ha enviado el formulario, mostrar todas las ventas por defecto
     $ventas = controladorSeleccionarTodasLasVentas();
 }
 
@@ -43,26 +84,35 @@ if(isset($_POST['eliminar_venta'])) {
     <main>
     <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <!-- Buscar cliente -->
+                <div class="col-md-12">
+                    <!-- Formulario de búsqueda -->
                     <form action="" method="GET">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Buscar cliente..." name="cliente">
-                            <button class="btn btn-primary" type="submit">Buscar</button>
+                            <div class="radio-buttons">
+                                <input type="radio" id="radio_cliente" name="tipo_busqueda" value="cliente" checked>
+                                <label for="radio_cliente">Buscar por cliente</label>
+                            
+                                <input type="radio" id="radio_funcionario" name="tipo_busqueda" value="funcionario">
+                                <label for="radio_funcionario">Buscar por funcionario</label>
+
+                                <input type="radio" id="radio_producto" name="tipo_busqueda" value="producto">
+                                <label for="radio_producto">Buscar por producto</label>
+
+                                <input type="radio" id="radio_fecha" name="tipo_busqueda" value="fecha">
+                                <label for="radio_fecha">Buscar por fecha</label>
+                                <!-- Agregar más botones de radio para otros tipos de búsqueda si es necesario -->
+                            </div>
+
+                            <input type="text" class="form-control" placeholder="Cliente..." name="cliente" id="input_cliente">
+                            <input type="text" class="form-control" placeholder="Funcionario..." name="funcionario" id="input_funcionario">
+                            <input type="text" class="form-control" placeholder="Producto..." name="producto" id="input_producto">
+                            <input type="text" class="form-control" placeholder="Fecha..." name="fecha" id="input_fecha">
+                            <!-- Agregar más campos de entrada según los tipos de búsqueda disponibles -->
+
+                            <button class="btn btn-primary" type="submit" name="buscar">Buscar</button>
                         </div>
                     </form>
                 </div>
-                <div class="col-md-6">
-                    <!-- Filtros 
-                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="orden" id="reciente" value="reciente"
-                    autocomplete="off" 
-                    <label class="btn btn-outline-primary" for="reciente">Más reciente</label>
-
-                    <input type="radio" class="btn-check" name="orden" id="antiguo" value="antiguo" 
-                    autocomplete="off" 
-                    <label class="btn btn-outline-primary" for="antiguo">Más antiguo</label>
-                </div>-->
             </div>
             <!-- Tabla de ventas -->
             <div class="table-responsive">
@@ -73,10 +123,7 @@ if(isset($_POST['eliminar_venta'])) {
                                 <th scope="col">CV</th>
                                 <th scope="col">Fecha</th>
                                 <th scope="col">Hora</th>
-                                <!--<th scope="col">Estado</th>-->
-                                <!--<th scope="col">Método</th>-->
                                 <th scope="col">Total</th>
-                                <!--<th scope="col">Total Entregado</th>-->
                                 <th scope="col">Tipo de Pago</th>
                                 <th scope="col">CI Cliente</th>
                                 <th scope="col">Funcionario CF</th>
@@ -89,23 +136,12 @@ if(isset($_POST['eliminar_venta'])) {
                                     <td><?php echo $venta->getCv(); ?></td>
                                     <td><?php echo $venta->getFecha(); ?></td>
                                     <td><?php echo $venta->getHora(); ?></td>
-                                    <!--<td><?php echo $venta->getEstado(); ?></td>-->
                                     <td><?php echo $venta->getTotal(); ?></td>
-                                    <!--<td><?php echo $venta->getTotalEntregado(); ?></td>-->
                                     <td><?php echo $venta->getTipodepago(); ?></td>
                                     <td><?php echo $venta->getCiCliente(); ?></td>
                                     <td><?php echo $venta->getFuncionarioCf(); ?></td>
-                                    
-                                    <!-- Formulario para eliminar una venta
-                                    <td> 
-                                    <form action="" method="POST">
-                                            <input type="hidden" name="cv" value=" ppp echo $venta->getCv(); ">
-                                            <button type="submit" name="eliminar_venta" class="btn btn-danger">Eliminar</button>
-                                        </form>
-                                    </td>
-                                    -->
                                     <td>
-                                    <button type="button" class="btn btn-primary" onclick="mostrarProductos('<?php echo $venta->getCv(); ?>')">Ver más</button>
+                                        <button type="button" class="btn btn-primary" onclick="mostrarProductos('<?php echo $venta->getCv(); ?>')">Ver más</button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -147,17 +183,43 @@ if(isset($_POST['eliminar_venta'])) {
 </html>
 
 <script>
-        function mostrarProductos(idVenta) {
-            // Obtener el elemento tr correspondiente a la venta
-            var filaVenta = document.getElementById('productosVenta_' + idVenta);
-            
-            // Cambiar la visibilidad de la fila
-            if (filaVenta.style.display === 'none') {
-                filaVenta.style.display = 'table-row';
-            } else {
-                filaVenta.style.display = 'none';
-            }
+    // Función para mostrar los productos de la venta
+    function mostrarProductos(idVenta) {
+        var filaVenta = document.getElementById('productosVenta_' + idVenta);
+        
+        if (filaVenta.style.display === 'none') {
+            filaVenta.style.display = 'table-row';
+        } else {
+            filaVenta.style.display = 'none';
         }
-    </script>
+    }
 
-
+    // Función para cambiar los campos de entrada según el tipo de búsqueda seleccionado
+    document.querySelectorAll('input[type=radio][name=tipo_busqueda]').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            if (this.value === 'cliente') {
+                document.getElementById('input_cliente').style.display = 'block';
+                document.getElementById('input_funcionario').style.display = 'none';
+                // Ocultar y mostrar otros campos según sea necesario
+            } else if (this.value === 'funcionario') {
+                document.getElementById('input_cliente').style.display = 'none';
+                document.getElementById('input_funcionario').style.display = 'block';
+                // Ocultar y mostrar otros campos según sea necesario
+            }
+              else if (this.value === 'producto') { // Agregar caso para búsqueda por producto
+                document.getElementById('input_cliente').style.display = 'none';
+                document.getElementById('input_funcionario').style.display = 'none';
+                document.getElementById('input_producto').style.display = 'block'; // Mostrar campo de producto
+                // Ocultar y mostrar otros campos según sea necesario
+            }
+            else if (this.value === 'fecha') { // Agregar caso para búsqueda por producto
+                document.getElementById('input_cliente').style.display = 'none';
+                document.getElementById('input_funcionario').style.display = 'none';
+                document.getElementById('input_producto').style.display = 'none';
+                document.getElementById('input_fecha').style.display = 'block';  // Mostrar campo de fecha
+                // Ocultar y mostrar otros campos según sea necesario
+            }
+            // Agregar más casos para otros tipos de búsqueda si es necesario
+        });
+    });
+</script>
