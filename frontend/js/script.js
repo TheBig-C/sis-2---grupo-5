@@ -112,6 +112,41 @@ function agregarLista(btn) {
     actualizarTotal(precioVenta, cantidad);
 }
 
+$(document).ready(function() {
+    function cargarProductos() {
+        var busqueda = $('#busqueda-producto').val();
+        var categoriaSeleccionada = $('#filtro-categoria').val();
+
+        $.ajax({
+            type: 'GET',
+            url: 'ruta_al_endpoint', // Asegúrate de cambiar esto por la URL real del endpoint
+            data: { busqueda: busqueda, categoria: categoriaSeleccionada },
+            success: function(productos) {
+                var productosHTML = '';
+                $.each(productos, function(i, producto) {
+                    productosHTML += '<div class="form-group" data-categoria="' + producto.categoria + '">';
+                    productosHTML += '<div class="form-check">';
+                    productosHTML += '<input type="checkbox" class="form-check-input">';
+                    productosHTML += '<label class="form-check-label" for="producto-' + producto.cp + '">' + producto.nombre + '</label>';
+                    productosHTML += '</div>';
+                    productosHTML += '<input type="number" class="form-control cantidad" placeholder="Cantidad">';
+                    productosHTML += '<select class="form-control proveedor-menu">';
+                    $.each(producto.proveedores, function(j, proveedor) {
+                        productosHTML += '<option value="' + proveedor.cproveedor + '">' + proveedor.nombre + '</option>';
+                    });
+                    productosHTML += '</select>';
+                    productosHTML += '<input type="hidden" class="producto-cp" value="' + producto.cp + '">';
+                    productosHTML += '</div>';
+                });
+                $('.card-body').html(productosHTML);
+            }
+        });
+    }
+
+    $('#busqueda-producto, #filtro-categoria').on('change', function() {
+        cargarProductos();
+    });
+});
 
 function updateCantidad(inputElement, productId) {
     var button = document.querySelector(`button[data-cp='${productId}']`);

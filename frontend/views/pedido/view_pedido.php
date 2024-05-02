@@ -1,10 +1,20 @@
 <?php
 include_once '../../../backend/core/conexion.php';
-include_once '../../../backend/models/Producto.php';
-include_once '../../../backend/models/Proveedor.php';
+include_once 'C:\xampp\htdocs\sis2-Ketal\backend\controllers\controllers.php';
+
+include_once '../../../backend/models/classes.php';
+
+$serializedSucursal = $_COOKIE['sucursal'];
+                        $suc = unserialize($serializedSucursal);
+                        $aux = $suc->getCsucursal();
+$busqueda = "";
+$categoria ="";
+$busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
+$categoria = isset($_GET['categoria']) ? $_GET['categoria'] : '';
+
 
 $categorias = Producto::obtenerCategorias();
-$productos = Producto::seleccionarTodosLosProductos();
+$productos = controladorSeleccionarProductosPorNombreYSucursal($busqueda, $aux, $categoria);
 $proveedores = Proveedor::seleccionarTodosLosProveedores();
 ?>
 <!DOCTYPE html>
@@ -15,6 +25,8 @@ $proveedores = Proveedor::seleccionarTodosLosProveedores();
     <title>Realizar Pedido</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/style.css">
+    <script type="text/javascript" src="../../js/script.js"></script>
+
 <style>
     html, body { margin: 0; padding: 0; overflow-x: hidden; background-color: #2b2d42; }
     .title-bar { background-color: transparent; color: white; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; }
@@ -44,15 +56,23 @@ $proveedores = Proveedor::seleccionarTodosLosProveedores();
             <!-- Columna de productos -->
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header">
-                        <h2>Productos | Pedido</h2>
-                        <select class="form-control" id="filtro-categoria">
-                            <option value="todos">Ver todos</option>
-                            <?php foreach ($categorias as $categoria) { ?>
-                                <option value="<?php echo htmlspecialchars($categoria); ?>"><?php echo htmlspecialchars($categoria); ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
+                <div class="card-header">
+    <h2>Productos | Pedido</h2>
+    <form method="get">
+        <input type="text" name="busqueda" placeholder="Buscar..." value="<?php echo isset($_GET['busqueda']) ? htmlspecialchars($_GET['busqueda']) : ''; ?>" class="form-control mb-2">
+        <select name="categoria" class="form-control">
+            <option value="">Todas las Categorías</option>
+            <?php foreach ($categorias as $categoria) { ?>
+                <option value="<?php echo htmlspecialchars($categoria); ?>" <?php echo (isset($_GET['categoria']) && $_GET['categoria'] == $categoria) ? 'selected' : ''; ?>>
+                    <?php echo htmlspecialchars($categoria); ?>
+                </option>
+            <?php } ?>
+        </select>
+        <button type="submit" class="menu-button">Buscar</button>
+    </form>
+</div>
+
+
                     <div class="card-body">
                         <?php
                         foreach ($productos as $producto) {

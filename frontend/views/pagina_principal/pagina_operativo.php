@@ -88,8 +88,16 @@
     <header class="header">
         <nav class="navbar">
             <img src="/sis2-Ketal/frontend/assets/ketal.png">
-            <span>Menú de Opciones</span>
-        </nav>
+            <?php
+include_once 'C:\xampp\htdocs\sis2-ketal\backend\models\classes.php';
+
+            if (isset($_COOKIE['sucursal'])) {
+                $serializedSucursal = $_COOKIE['sucursal'];
+                $suc = unserialize($serializedSucursal);
+
+            }
+            echo "<span>Menú de Opciones - Sucursal: ". $suc->getZona() ." </span>"; // PHP echo for "Menú de Opciones"
+            ?>        </nav>
         <a href="../auth/login.html"><b>Salir</b></a>
     </header>
     <div class="container mt-5">

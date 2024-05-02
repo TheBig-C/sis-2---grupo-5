@@ -140,7 +140,7 @@
             </div>
         </div>
     </div>
-        <div class="baseDerecha">
+    <div class="baseDerecha">
             
             <div class="contenedor1">
                 <div class="">
@@ -199,6 +199,8 @@
                 </div>
             </div>
         </div>
+
+
 </div>
 <!-- Modal para datos del cliente -->
 <div class="modal" id="clienteModal" tabindex="-1" role="dialog">
