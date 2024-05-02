@@ -30,6 +30,20 @@ function controladorSeleccionarVentasPorCliente($ci_cliente) {
         echo "Error al buscar venta por cliente: " . $e->getMessage();
     }
 }
+function controladorSeleccionarVentasPorFuncionario($funcionario_cf) {
+    try {
+        return Venta::seleccionarVentasPorFuncionario($funcionario_cf);
+    } catch (Exception $e) {
+        echo "Error al buscar venta por funcionario: " . $e->getMessage();
+    }
+}
+function controladorseleccionarVentasPorProducto($producto_nombre) {
+    try {
+        return Venta::seleccionarVentasPorProducto($producto_nombre);
+    } catch (Exception $e) {
+        echo "Error al buscar venta por producto: " . $e->getMessage();
+    }
+}
 
 function controladorActualizarVenta($cv, $fecha, $hora, $estado, $total, $totalEntregado, $tipodepago, $ci_cliente, $Funcionario_cf) {
     try {

@@ -161,7 +161,65 @@ class Venta {
 
         return $ventas;
     }
+    public static function seleccionarVentasPorFuncionario($funcionario_cf) {
+        $conn = conexion();
+        $funcionario_cf = pg_escape_string($conn, $funcionario_cf);
 
+        $query = "SELECT * FROM Venta WHERE funcionario_cf = '$funcionario_cf'";
+        $result = pg_query($conn, $query);
+        if (!$result) {
+            echo "Ocurrió un error al seleccionar las ventas del cliente.\n";
+            exit;
+        }
+
+        $ventas = [];
+        while ($ventaData = pg_fetch_assoc($result)) {
+            $ventas[] = new Venta(
+                $ventaData['cv'],
+                $ventaData['fecha'],
+                $ventaData['hora'],
+                $ventaData['estado'],
+                $ventaData['total'],
+                $ventaData['totalentregado'],
+                $ventaData['tipodepago'],
+                $ventaData['cliente_ci'],
+                $ventaData['funcionario_cf']
+            );
+        }
+        return $ventas;
+    }
+    public static function seleccionarVentasPorProducto($producto_nombre) {
+        $conn = conexion();
+        $producto_nombre = pg_escape_string($conn, $producto_nombre);
+    
+        $query = "SELECT v.* 
+                  FROM Venta v
+                  JOIN ProductoVendido pv ON v.cv = pv.Venta_cv
+                  JOIN Producto p ON pv.Producto_cp = p.cp
+                  WHERE p.nombre = '$producto_nombre'";
+        $result = pg_query($conn, $query);
+        if (!$result) {
+            echo "Ocurrió un error al seleccionar las ventas por producto.\n";
+            exit;
+        }
+    
+        $ventas = [];
+        while ($ventaData = pg_fetch_assoc($result)) {
+            $ventas[] = new Venta(
+                $ventaData['cv'],
+                $ventaData['fecha'],
+                $ventaData['hora'],
+                $ventaData['estado'],
+                $ventaData['total'],
+                $ventaData['totalentregado'],
+                $ventaData['tipodepago'],
+                $ventaData['cliente_ci'],
+                $ventaData['funcionario_cf']
+            );
+        }
+        return $ventas;
+    }
+    
     public static function actualizarVenta($cv, $fecha, $hora, $estado, $total, $totalEntregado, $tipodepago, $cliente_ci, $Funcionario_cf) {
         $conn = conexion();
         // Preparar y escapar los datos
