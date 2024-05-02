@@ -44,6 +44,13 @@ function controladorseleccionarVentasPorProducto($producto_nombre) {
         echo "Error al buscar venta por producto: " . $e->getMessage();
     }
 }
+function controladorseleccionarVentasPorFecha($fecha) {
+    try {
+        return Venta::seleccionarVentasPorFecha($fecha);
+    } catch (Exception $e) {
+        echo "Error al buscar venta por fecha: " . $e->getMessage();
+    }
+}
 
 function controladorActualizarVenta($cv, $fecha, $hora, $estado, $total, $totalEntregado, $tipodepago, $ci_cliente, $Funcionario_cf) {
     try {

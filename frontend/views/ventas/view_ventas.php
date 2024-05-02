@@ -29,8 +29,23 @@ if (isset($_GET['buscar'])) {
             }
             break;
 
-        // Agregar más casos para otros tipos de búsqueda si es necesario
-        
+        case 'fecha':
+            $fecha = $_GET['fecha'];
+            if (!empty($fecha)) { 
+                $ventas = controladorSeleccionarVentasPorFecha($fecha);
+            } else { 
+                $ventas = controladorSeleccionarTodasLasVentas();
+            }
+            break;
+        case 'producto':
+            $producto_nombre = $_GET['producto'];
+            if (!empty($producto_nombre)) { 
+                $ventas = controladorSeleccionarVentasPorProducto($producto_nombre);
+            } else { 
+                $ventas = controladorSeleccionarTodasLasVentas();
+            }
+            break;           
+            
         default:
             // Si no se selecciona ningún tipo, mostrar todas las ventas
             $ventas = controladorSeleccionarTodasLasVentas();
@@ -80,15 +95,18 @@ if(isset($_POST['eliminar_venta'])) {
                                 <input type="radio" id="radio_funcionario" name="tipo_busqueda" value="funcionario">
                                 <label for="radio_funcionario">Buscar por funcionario</label>
 
-                                <input type="radio" id="radio_funcionario" name="tipo_busqueda" value="funcionario">
-                                <label for="radio_funcionario">Buscar por producto</label>
+                                <input type="radio" id="radio_producto" name="tipo_busqueda" value="producto">
+                                <label for="radio_producto">Buscar por producto</label>
 
+                                <input type="radio" id="radio_fecha" name="tipo_busqueda" value="fecha">
+                                <label for="radio_fecha">Buscar por fecha</label>
                                 <!-- Agregar más botones de radio para otros tipos de búsqueda si es necesario -->
                             </div>
 
                             <input type="text" class="form-control" placeholder="Cliente..." name="cliente" id="input_cliente">
                             <input type="text" class="form-control" placeholder="Funcionario..." name="funcionario" id="input_funcionario">
                             <input type="text" class="form-control" placeholder="Producto..." name="producto" id="input_producto">
+                            <input type="text" class="form-control" placeholder="Fecha..." name="fecha" id="input_fecha">
                             <!-- Agregar más campos de entrada según los tipos de búsqueda disponibles -->
 
                             <button class="btn btn-primary" type="submit" name="buscar">Buscar</button>
@@ -188,10 +206,17 @@ if(isset($_POST['eliminar_venta'])) {
                 document.getElementById('input_funcionario').style.display = 'block';
                 // Ocultar y mostrar otros campos según sea necesario
             }
-                else if (this.value === 'producto') { // Agregar caso para búsqueda por producto
+              else if (this.value === 'producto') { // Agregar caso para búsqueda por producto
                 document.getElementById('input_cliente').style.display = 'none';
                 document.getElementById('input_funcionario').style.display = 'none';
                 document.getElementById('input_producto').style.display = 'block'; // Mostrar campo de producto
+                // Ocultar y mostrar otros campos según sea necesario
+            }
+            else if (this.value === 'fecha') { // Agregar caso para búsqueda por producto
+                document.getElementById('input_cliente').style.display = 'none';
+                document.getElementById('input_funcionario').style.display = 'none';
+                document.getElementById('input_producto').style.display = 'none';
+                document.getElementById('input_fecha').style.display = 'block';  // Mostrar campo de fecha
                 // Ocultar y mostrar otros campos según sea necesario
             }
             // Agregar más casos para otros tipos de búsqueda si es necesario

@@ -188,6 +188,33 @@ class Venta {
         }
         return $ventas;
     }
+    public static function seleccionarVentasPorFecha($fecha) {
+        $conn = conexion();
+        $funcionario_cf = pg_escape_string($conn, $fecha);
+
+        $query = "SELECT * FROM Venta WHERE fecha = '$fecha'";
+        $result = pg_query($conn, $query);
+        if (!$result) {
+            echo "Ocurrió un error al seleccionar las ventas por fecha.\n";
+            exit;
+        }
+
+        $ventas = [];
+        while ($ventaData = pg_fetch_assoc($result)) {
+            $ventas[] = new Venta(
+                $ventaData['cv'],
+                $ventaData['fecha'],
+                $ventaData['hora'],
+                $ventaData['estado'],
+                $ventaData['total'],
+                $ventaData['totalentregado'],
+                $ventaData['tipodepago'],
+                $ventaData['cliente_ci'],
+                $ventaData['funcionario_cf']
+            );
+        }
+        return $ventas;
+    }
     public static function seleccionarVentasPorProducto($producto_nombre) {
         $conn = conexion();
         $producto_nombre = pg_escape_string($conn, $producto_nombre);
