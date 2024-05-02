@@ -106,7 +106,7 @@
             <img src="/sis2-Ketal//frontend/assets/ketal.png">
             <span>Registrar Empleado</span>
         </nav>
-        <a href="../pagina_principal/pagina_opciones.php"><b>Menú</b></a>
+        <a href="../pagina_principal/enrutamiento.php"><b>Menú</b></a>
     </header>
     <div class="container">
         <div class="form-container">

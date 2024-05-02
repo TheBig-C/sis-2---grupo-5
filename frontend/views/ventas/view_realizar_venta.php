@@ -11,13 +11,27 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="../../js/script.js"></script>
-
+    <style>
+    html, body { margin: 0; padding: 0; overflow-x: hidden; background-color: #2b2d42; }
+    .title-bar { background-color: transparent; color: white; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; }
+    .title-bar img { width: 100px; }
+    .container-fluid { padding-top: 120px; }
+    .card { background-color: #edf2f4; border-radius: 8px; margin-bottom: 1rem; }
+    .card-header { background-color: #edf2f4; border-bottom: 0; }
+    .card-body { padding: 20px; }
+    .menu-button { background-color: #ef233c; border: none; color: white; padding: 0.5rem 1rem; font-size: 1rem; border-radius: 5px; cursor: pointer; }
+    .menu-button:hover { background-color: #d90429; }
+    .input-group-text { background-color: #edf2f4; border: 0; padding: 0.375rem 0.75rem; }
+    .form-control { border: 0; }
+    .btn-red { background-color: #ef233c; border: none; color: white; padding: 10px 20px; font-size: 1rem; margin-top: 10px; cursor: pointer; }
+    .btn-red:hover { background-color: #d90429; }
+</style>
 </head>
 <body>
   
 <div class="narvar">
     <img class="imagenNavar" src="https://ilacad.com/BO/data/logos_cadenas/Bolivia_Ketal_Logo.png" alt="">
-    <button type="button" class="btn btn-primary" onclick="window.location.href='../pagina_principal/pagina_opciones.php';">Salir</button>
+    <button type="button" class="btn btn-primary" onclick="window.location.href='../pagina_principal/enrutamiento.php';">Salir</button>
  
 </div>
 <div class="base">
@@ -90,16 +104,16 @@
                             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                             $response = curl_exec($ch);
                             curl_close($ch);
+                            $l = "https://cdn-icons-png.flaticon.com/512/3240/3240782.png";
 
                             $result = json_decode($response);
+                            $im = htmlspecialchars($query);
+
                             if (isset($result->items)) {
                                 foreach ($result->items as $item) {
                                     $l = $item->link;
-                                    $im = htmlspecialchars($query);
                                 }
-                            } else {
-                                echo 'No se encontraron imágenes.';
-                            }
+                            } 
 
                             echo "<div class='solution_card'>
                                     <div class='hover_color_bubble'></div>
@@ -211,6 +225,8 @@
                         <input type="text" class="form-control" id="clienteApellidos" required>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="finalizarVenta()">Finalizar Venta</button>
+                    <button type="button" class="btn btn-primary" onclick="finalizarVentaWD()">Finalizar Venta sin datos</button>
+
                 </form>
             </div>
         </div>
