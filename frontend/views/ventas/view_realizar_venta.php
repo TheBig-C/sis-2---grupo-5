@@ -25,15 +25,60 @@
     .form-control { border: 0; }
     .btn-red { background-color: #ef233c; border: none; color: white; padding: 10px 20px; font-size: 1rem; margin-top: 10px; cursor: pointer; }
     .btn-red:hover { background-color: #d90429; }
+
+    body{
+            background-color:#2B2D42;
+            min-height: 100vh;
+            margin-top: 15vh;
+        }
+        .header{
+            display: flex;
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 12vh;
+            background: aliceblue;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000; 
+            padding: 0vh 5vh;
+        }
+        .header a{
+            color: #fff; 
+            font-weight: 30;
+            text-decoration: none;
+            font-size: 3vh;
+            background-color: #ef233c; 
+            border-radius: 10px; 
+            padding: 1vh 2vh; 
+        }
+
+        .header a:hover {
+            background-color: #d90429; 
+        }
+
+        .navbar span{
+            color: #14141E;
+            padding-left: 3vh;
+            padding-right: 3vh;
+            font-size: 6vh;
+        }
+        .navbar img{
+            width: 15vh;
+            height: auto;
+        }
+
 </style>
 </head>
 <body>
-  
-<div class="narvar">
-    <img class="imagenNavar" src="https://ilacad.com/BO/data/logos_cadenas/Bolivia_Ketal_Logo.png" alt="">
-    <button type="button" class="btn btn-primary" onclick="window.location.href='../pagina_principal/enrutamiento.php';">Salir</button>
- 
-</div>
+<header class="header">
+        <nav class="navbar">
+            <img src="/sis2-Ketal//frontend/assets/ketal.png">
+            <span>Realizar Venta</span>
+        </nav>
+        <a href="../pagina_principal/enrutamiento.php"><b>Menú</b></a>
+    </header>
 <div class="base">
     <div class="baseIzquierda">
     <div class="contenedorBoton">
