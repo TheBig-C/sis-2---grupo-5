@@ -80,7 +80,7 @@
             <img src="/sis2-Ketal//frontend/assets/ketal.png">
             <span>Pedidos</span>
         </nav>
-        <a href="../pagina_principal/pagina_opciones.php"><b>Menú</b></a>
+        <a href="../pagina_principal/enrutamiento.php"><b>Menú</b></a>
     </header>
     </div>
     <div class="container-fluid">

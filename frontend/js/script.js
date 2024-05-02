@@ -98,26 +98,58 @@ function agregarLista(btn) {
     var precioTotalProducto = parseFloat(precioVenta) * parseInt(cantidad);
 
     var nuevoProductoHtml = `
-        <div class="Contendorproducto">
+        <div class="Contendorproducto" id="producto-${cp}">
             <div class="row">
                 <h5 class="tituloProducto">${nombreProducto}</h5>
                 <p>${precioVenta} Bs. x ${cantidad} = ${precioTotalProducto.toFixed(2)} Bs.</p>
-            </div>
+                <button onclick="eliminarProducto('${cp}')" class="btn btn-danger btn-eliminar">X</button>
+                </div>
         </div>`;
 
     document.querySelector('.contendorDeProductos').innerHTML += nuevoProductoHtml;
     deetallesVenta.push({ cp: cp, nombre: nombreProducto, precio: precioVenta, cantidad: cantidad });
 
-    actualizarTotal(precioVenta, cantidad);  // Asegúrate de pasar la cantidad aquí
+    actualizarTotal(precioVenta, cantidad);
 }
+
 
 function updateCantidad(inputElement, productId) {
     var button = document.querySelector(`button[data-cp='${productId}']`);
     button.setAttribute('data-cantidad', inputElement.value);
 }
+function eliminarProducto(cp) {
+    // Eliminar el elemento HTML del producto
+    var productoElement = document.getElementById(`producto-${cp}`);
+    productoElement.remove();
+
+    // Actualizar el array deetallesVenta
+    deetallesVenta = deetallesVenta.filter(item => item.cp !== cp);
+
+    // Actualizar el total
+    var totalReduccion = parseFloat(productoElement.querySelector('p').textContent.split('=')[1].trim().split(' ')[0]);
+    var totalElemento = document.querySelector('.tituloProducto2').parentNode.children[1];
+    var totalActual = parseFloat(totalElemento.textContent);
+    var nuevoTotal = totalActual - totalReduccion;
+    totalElemento.textContent = `${nuevoTotal.toFixed(2)} Bs.`;
+}
 
 function realizarVenta() {
     $('#clienteModal').modal('show'); // Mostrar el modal
+}
+
+function finalizarVentaWD() {
+    var metodoPago = document.getElementById('metodoPago').value;
+    console.log('Método de Pago seleccionado:', metodoPago);
+
+    var productos = document.querySelectorAll('.Contendorproducto');
+    var totalVenta = parseFloat(document.querySelector('.tituloProducto2').parentNode.children[1].textContent);
+console.log(productos);
+    
+    
+    console.log("ddfa");
+console.log(deetallesVenta);
+
+    enviarVenta(deetallesVenta, totalVenta, 666, "cliente sin nombre", "cliente sin apellido",metodoPago);
 }
 
 function finalizarVenta() {

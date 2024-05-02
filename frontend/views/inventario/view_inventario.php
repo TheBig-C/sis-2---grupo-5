@@ -15,7 +15,7 @@
 
     <div class="narvar">
         <img class="imagenNavar" src="https://ilacad.com/BO/data/logos_cadenas/Bolivia_Ketal_Logo.png" alt="">
-        <button type="button" class="btn btn-primary" onclick="window.location.href='../pagina_principal/pagina_opciones.php';">Salir</button>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='../pagina_principal/enrutamiento.php';">Salir</button>
 
     </div>
     <div class="base">
@@ -57,9 +57,8 @@
                         $inv = 0;
                         $h = 150;
                         $w = 150;
-                        $apiKey = 'AIzaSyD_VD0W_aE-tnFKTJwSfFIzGmD3BrIgYkU';
-                        $cx = 'b6b21b544d2f945bf';
-
+                        $apiKey = 'AIzaSyB1_OZpBo6mhTX6SM1kHs3LkBly1S2H254';
+                        $cx = '716ea38c901b34ba5';
                         $serializedSucursal = $_COOKIE['sucursal'];
                         $suc = unserialize($serializedSucursal);
                         $aux = $suc->getCsucursal();
@@ -86,15 +85,15 @@
                             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                             $response = curl_exec($ch);
                             curl_close($ch);
+                            $l = "https://cdn-icons-png.flaticon.com/512/3240/3240782.png";
 
                             $result = json_decode($response);
+                            $im = htmlspecialchars($query);
+
                             if (isset($result->items)) {
                                 foreach ($result->items as $item) {
                                     $l = $item->link;
-                                    $im = htmlspecialchars($query);
                                 }
-                            } else {
-                                echo 'No se encontraron imágenes.';
                             }
 
                             echo "<div class='solution_card'>
@@ -108,7 +107,7 @@
                                     <div class='solu_description'>
                                         <p>Precio: {$producto->getPrecioVenta()} Bs.</p>
                                         <p>Cantidad: {$inv->getCantidad()}</p>
-                                        <button type='button' class='read_more_btn' onclick='updateDetails(this)' data-cp='{$producto->getCp()}' data-categoria='{$producto->getCp()}' data-inventario='{$inv->getEstado()}' data-nombre='{$producto->getNombre()}' data-precio-venta='{$producto->getPrecioVenta()}'  data-precio-compra='{$producto->getPrecioCompra()}'  data-cantidad='{$inv->getCantidad()}'>Vera mas..</button>
+                                        <button type='button' class='read_more_btn' onclick='updateDetails(this)' data-cinv='{$inv->getCinv()}' data-cp='{$producto->getCp()}' data-categoria='{$producto->getCategoria()}' data-inventario='{$inv->getEstado()}' data-nombre='{$producto->getNombre()}' data-precio-venta='{$producto->getPrecioVenta()}'  data-precio-compra='{$producto->getPrecioCompra()}'  data-cantidad='{$inv->getCantidad()}'>Vera mas..</button>
                                         <input type='number' value='0' min='0' max='$cant' style='width: 60px;' onchange='updateCantidad(this, {$producto->getCp()})'>
                                     </div>
                                 </div>";

@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <img src="/sis2-Ketal//frontend/assets/ketal.png">
             <span>Registrar Producto</span>
         </nav>
-        <a href="../pagina_principal/pagina_opciones.php"><b>Menú</b></a>
+        <a href="../pagina_principal/enrutamiento.php"><b>Menú</b></a>
     </header>
     <main>
         <div class="container">

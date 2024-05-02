@@ -98,7 +98,7 @@ class Producto {
         $conn = conexion();
         $query = "SELECT a.cp, a.nombre, a.preciocompra, a.precioventa, a.categoria, a.proveedor_cproveedor
                   FROM producto a, sucursal b, inventario c
-                  WHERE a.cp=c.producto_cp AND b.csucursal=c.sucursal_csucursal AND b.csucursal=$1
+                  WHERE a.cp=c.producto_cp AND b.csucursal=c.sucursal_csucursal AND c.cantidad>0 AND b.csucursal=$1
                     AND c.estado='true' AND a.nombre ILIKE $2";
     
         $params = array($csu, '%' . $busqueda . '%');

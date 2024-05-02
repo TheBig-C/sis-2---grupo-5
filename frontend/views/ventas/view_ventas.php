@@ -79,7 +79,7 @@ if(isset($_POST['eliminar_venta'])) {
             <img src="/sis2-Ketal//frontend/assets/ketal.png">
             <span>Ventas</span>
         </nav>
-        <a href="../pagina_principal/pagina_opciones.php"><b>Menú</b></a>
+        <a href="../pagina_principal/enrutamiento.php"><b>Menú</b></a>
     </header>
     <main>
     <div class="container">
