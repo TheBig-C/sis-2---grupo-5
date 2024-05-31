@@ -120,8 +120,8 @@
                         $inv = 0;
                         $h = 150;
                         $w = 150;
-                        $apiKey = 'AIzaSyD_VD0W_aE-tnFKTJwSfFIzGmD3BrIgYkU';
-                        $cx = 'b6b21b544d2f945bf';
+                        $apiKey = 'AIzaSyA5O_YqUwYkdOjjVJmlN0-TzMbmNeTPm2U';
+                        $cx = 'd24d16289fefe435b';
 
                         $serializedSucursal = $_COOKIE['sucursal'];
                         $suc = unserialize($serializedSucursal);

@@ -1,11 +1,11 @@
 <?php
 include_once 'C:\xampp\htdocs\sis2-ketal\backend\core\conexion.php';
 class Funcionario {
-    private $cf;
-    private $tipo;
-    private $nombre;
-    private $password;
-    private $sucursal_csucursal;
+    public $cf;
+    public $tipo;
+    public $nombre;
+    public $password;
+    public $sucursal_csucursal;
 
     public function __construct($cf, $tipo, $nombre, $password, $sucursal_csucursal) {
         $this->cf = $cf;

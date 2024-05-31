@@ -104,8 +104,8 @@
                         $inv = 0;
                         $h = 150;
                         $w = 150;
-                        $apiKey = 'AIzaSyB1_OZpBo6mhTX6SM1kHs3LkBly1S2H254';
-                        $cx = '716ea38c901b34ba5';
+                        $apiKey = 'AIzaSyA5O_YqUwYkdOjjVJmlN0-TzMbmNeTPm2U';
+                        $cx = 'd24d16289fefe435b';
                         $serializedSucursal = $_COOKIE['sucursal'];
                         $suc = unserialize($serializedSucursal);
                         $aux = $suc->getCsucursal();

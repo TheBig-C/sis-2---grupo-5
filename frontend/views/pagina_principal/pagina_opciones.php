@@ -96,9 +96,11 @@ include_once 'C:\xampp\htdocs\sis2-ketal\backend\models\classes.php';
     <div class="container mt-5">
         <div class="row text-center options-container">
             <!-- Botones de las opciones en la primera fila -->
-            <a href="../ventas/view_realizar_venta.php" class="btn btn-option">REGISTRAR VENTA</a>
-            <a href="../pedido/view_pedido.php" class="btn btn-option">REALIZAR PEDIDO</a>
-            <a href="../productos/view_register_product.php" class="btn btn-option">AGREGAR NUEVO PRODUCTO</a>
+            <a href="../ventas/view_realizar_venta.php" class="btn btn-option btn-option-large">REGISTRAR VENTA</a>
+            <a href="../pedido/view_pedido.php" class="btn btn-option btn-option-large">REALIZAR PEDIDO</a>
+            <a href="../productos/view_register_product.php" class="btn btn-option btn-option-large">AGREGAR NUEVO PRODUCTO</a>
+
+            <a href="../funcionario/view_funcionarios.php" class="btn btn-option btn-option-large">EMPLEADOS</a>
         </div>
         <div class="row text-center options-container">
             <!-- Botones de las opciones en la segunda fila -->
