@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboards</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; 
+            background: aliceblue;
+        }
+        .header {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 5vh;
+            background: aliceblue;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        .header a {
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 3vh;
+            background-color: #ef233c;
+            border-radius: 10px;
+            padding: 1vh 2vh;
+            margin-left: 10px;
+        }
+        .header a:hover {
+            background-color: #d90429;
+        }
+        .navbar span {
+            color: #14141E;
+            padding-left: 3vh;
+            padding-right: 3vh;
+            font-size: 6vh;
+        }
+        .navbar img {
+            width: 15vh;
+            height: auto;
+        }
+        .navbar a {
+            color: #14141E;
+            padding: 10px;
+            font-size: 1.2em;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+        .navbar a:hover {
+            background-color: #ef233c;
+            color: #fff;
+            border-radius: 5px;
+        }
+        .iframe-container {
+            margin-top: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 160px);
+        }
+        iframe {
+            width: 90%;
+            height: 90%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <img src="/sis2-Ketal//frontend/assets/ketal.png">
+            <span>Dashboards</span>
+            <a href="javascript:void(0)" onclick="showDashboard('general')">General</a>
+            <a href="javascript:void(0)" onclick="showDashboard('pedidos/proveedor')">Pedidos por Proveedor</a>
+            <a href="javascript:void(0)" onclick="showDashboard('productos/cliente')">Productos por Cliente</a>
+            <a href="javascript:void(0)" onclick="showDashboard('sucursal/funcionario')">Sucursal por Funcionario</a>
+            <a href="javascript:void(0)" onclick="showDashboard('venta/producto')">Venta por Producto</a>
+        </nav>
+        <a href="./pagina_opciones.php"><b>Menu</b></a>
+    </header></body>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <br>
+    <div class="iframe-container text-center">
+        <iframe id="dashboardIframe" title="Dashboard"></iframe>
+    </div>
+
+    <script>
+        function showDashboard(dashboard) {
+            const urls = {
+                'general' : 'https://app.powerbi.com/view?r=eyJrIjoiODViY2UxYzgtYTMyZC00ODI5LWI3ZTEtMTRjM2UwZjRjMTFhIiwidCI6ImNjMjg2MzNmLTEyYjgtNDZjYi1iYzE1LTk1MWRhZTIzOWI0ZCIsImMiOjR9',
+                'pedidos/proveedor': 'https://app.powerbi.com/view?r=eyJrIjoiMjZmMWI3ODctODU5YS00Mjc4LThmMTgtN2VkZWJiOTJkNDg1IiwidCI6ImNjMjg2MzNmLTEyYjgtNDZjYi1iYzE1LTk1MWRhZTIzOWI0ZCIsImMiOjR9',
+                'productos/cliente': 'https://app.powerbi.com/view?r=eyJrIjoiZjFlYjY1YWMtOGE4OS00M2RiLWJhM2MtN2Q4YWZlZWU5NGQxIiwidCI6ImNjMjg2MzNmLTEyYjgtNDZjYi1iYzE1LTk1MWRhZTIzOWI0ZCIsImMiOjR9',
+                'sucursal/funcionario': 'https://app.powerbi.com/view?r=eyJrIjoiMGIyYTNlYzktZDdlNi00OWY3LTgyZjYtYWQ0MTI0M2M1MWM2IiwidCI6ImNjMjg2MzNmLTEyYjgtNDZjYi1iYzE1LTk1MWRhZTIzOWI0ZCIsImMiOjR9',
+                'venta/producto': 'https://app.powerbi.com/view?r=eyJrIjoiZjU4MGE5OGEtMzNlNi00MTAxLWE2ZGQtYTQzNTMwODgyYjlhIiwidCI6ImNjMjg2MzNmLTEyYjgtNDZjYi1iYzE1LTk1MWRhZTIzOWI0ZCIsImMiOjR9'
+            };
+            document.getElementById('dashboardIframe').src = urls[dashboard];
+        }
+        // Mostrar el primer dashboard por defecto
+        document.addEventListener('DOMContentLoaded', function() {
+            showDashboard('general');
+        });
+    </script>
+</body>
+</html>
